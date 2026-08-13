@@ -27,9 +27,9 @@ export function HeroSection({ onViewEvents, onRSVP }: HeroSectionProps) {
         <img
           src={imgHeroBg}
           alt="Gana & Vinu"
-          className="absolute inset-0 size-full object-cover object-center pointer-events-none opacity-30"
+          className="absolute inset-0 size-full object-cover object-center pointer-events-none opacity-60"
         />
-        <div className="absolute inset-0 bg-black/85" />
+        <div className="absolute inset-0 bg-black/60" />
       </div>
 
       {/* Scattered petals */}
@@ -163,8 +163,8 @@ export function HeroSection({ onViewEvents, onRSVP }: HeroSectionProps) {
             Request the honor of your presence
           </p>
           <p
-            className="text-[30px] tracking-[0.75px] text-white"
-            style={{ fontFamily: "'Cormorant Garamond', serif" }}
+            className="text-[26px] md:text-[30px] tracking-[1px] text-white font-medium"
+            style={{ fontFamily: "'Poppins', sans-serif" }}
           >
             Saturday, Oct 24th
           </p>
