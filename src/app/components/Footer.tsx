@@ -16,13 +16,13 @@ export function Footer() {
             style={{ fontFamily: "'Sacramento', cursive" }}
             className="text-4xl md:text-5xl tracking-wide text-[#C4A57B]"
           >
-            Vinu <motion.span
+            Gana <motion.span
               initial={{ scale: 0 }}
               whileInView={{ scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
               className="inline-block text-white/70"
-            >&</motion.span> Gana
+            >&</motion.span> Vinu
           </motion.h3>
           
           {/* Date */}
@@ -107,7 +107,7 @@ export function Footer() {
           className="mt-12 pt-8 border-t border-white/10 text-center"
         >
           <p className="text-xs tracking-wider uppercase text-white/40 font-sans">
-            © 2026 Vinu & Gana. All rights reserved.
+            © 2026 Gana & Vinu. All rights reserved.
           </p>
         </motion.div>
       </div>

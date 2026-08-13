@@ -26,7 +26,7 @@ export function HeroSection({ onViewEvents, onRSVP }: HeroSectionProps) {
       <div className="absolute inset-0 z-0">
         <img
           src={imgHeroBg}
-          alt="Vinu & Gana"
+          alt="Gana & Vinu"
           className="absolute inset-0 size-full object-cover object-center pointer-events-none"
         />
         <div className="absolute inset-0 bg-black/70" />
@@ -90,12 +90,12 @@ export function HeroSection({ onViewEvents, onRSVP }: HeroSectionProps) {
 
         {/* Names — writing animation */}
         <h1
-          style={{ fontFamily: "'Great Vibes', cursive", lineHeight: 1 }}
+          style={{ fontFamily: "'Waiting for the Sunrise', cursive", lineHeight: 1 }}
           className="text-[70px] md:text-[128px] text-[#C4A57B] tracking-[-1.5px] md:tracking-[-3.2px] mb-0 whitespace-nowrap"
         >
-          {"Vinu".split("").map((char, i) => (
+          {"Gana".split("").map((char, i) => (
             <motion.span
-              key={`v-${i}`}
+              key={`g-${i}`}
               initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.25, delay: 0.5 + i * 0.1, ease: "easeOut" }}
@@ -112,9 +112,9 @@ export function HeroSection({ onViewEvents, onRSVP }: HeroSectionProps) {
           >
             &
           </motion.span>
-          {"Gana".split("").map((char, i) => (
+          {"Vinu".split("").map((char, i) => (
             <motion.span
-              key={`g-${i}`}
+              key={`v-${i}`}
               initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.25, delay: 1.15 + i * 0.1, ease: "easeOut" }}
@@ -163,13 +163,13 @@ export function HeroSection({ onViewEvents, onRSVP }: HeroSectionProps) {
             Request the honor of your presence
           </p>
           <p
-            className="text-[28px] md:text-[32px] tracking-[0.75px] text-[#ffdede]"
+            className="text-[30px] tracking-[0.75px] text-[#ffdede]"
             style={{ fontFamily: "'Cormorant Garamond', serif" }}
           >
-            24 & 25 October 2026
+            Saturday, Oct 24th
           </p>
           <p className="text-[14px] tracking-[0.7px] font-sans text-white/60">
-            Century Auditorium, Mele Chelari · Reef Club
+            Century Convention Centre, Mele Chelari, Near Calicut University
           </p>
         </motion.div>
 

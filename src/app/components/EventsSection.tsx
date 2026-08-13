@@ -17,14 +17,14 @@ const events: Event[] = [
     name: 'Reception',
     date: 'Saturday, Oct 24th, 2026',
     time: '5:00 PM – 8:00 PM',
-    venue: 'Century Auditorium, Mele Chelari'
+    venue: 'Century Convention Centre, Mele Chelari, Near Calicut University'
   },
   {
     id: 'wedding',
     name: 'Wedding',
     date: 'Sunday, Oct 25th, 2026',
     time: '10:30 AM',
-    venue: 'Reef Club'
+    venue: 'Reef Club Resort, Eranhikkal, Calicut'
   }
 ];
 
@@ -91,9 +91,9 @@ export function EventsSection() {
     // Create Google Calendar URL
     const googleCalendarUrl = new URL('https://calendar.google.com/calendar/render');
     googleCalendarUrl.searchParams.append('action', 'TEMPLATE');
-    googleCalendarUrl.searchParams.append('text', `${event.name} - Vinu & Gana's Wedding`);
+    googleCalendarUrl.searchParams.append('text', `${event.name} - Gana & Vinu's Wedding`);
     googleCalendarUrl.searchParams.append('dates', `${start}/${end}`);
-    googleCalendarUrl.searchParams.append('details', `Join us for ${event.name} at Vinu & Gana's wedding celebration.`);
+    googleCalendarUrl.searchParams.append('details', `Join us for ${event.name} at Gana & Vinu's wedding celebration.`);
     googleCalendarUrl.searchParams.append('location', event.venue);
     
     // Open in new window
@@ -102,7 +102,7 @@ export function EventsSection() {
 
   const handleGetDirections = (eventId: string) => {
     if (eventId === 'reception') {
-      window.open('https://www.google.com/maps/search/?api=1&query=Century+Auditorium+Mele+Chelari', '_blank');
+      window.open('https://www.google.com/maps/search/?api=1&query=Century+Convention+Centre+Mele+Chelari+Near+Calicut+University', '_blank');
     } else if (eventId === 'wedding') {
       window.open('https://www.google.com/maps/search/?api=1&query=Reef+Club+Resort+Eranhikkal+Calicut', '_blank');
     }
