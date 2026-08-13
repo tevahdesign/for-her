@@ -20,11 +20,7 @@ interface GalleryImage {
 // [Together  ] [Moments   ] [Forever  ]  row 2
 // [Joy               ] [Forever  ]       row 3
 const galleryImages: GalleryImage[] = [
-  { id: 1, src: imgTogether,     caption: 'Together',     gridClass: 'col-start-1 col-end-2 row-start-1 row-end-3' },
-  { id: 2, src: imgCelebrations, caption: 'Celebrations', gridClass: 'col-start-2 col-end-4 row-start-1 row-end-2' },
-  { id: 3, src: imgMoments,      caption: 'Moments',      gridClass: 'col-start-2 col-end-3 row-start-2 row-end-3' },
-  { id: 4, src: imgForever,      caption: 'Forever',      gridClass: 'col-start-3 col-end-4 row-start-2 row-end-4' },
-  { id: 5, src: imgJoy,          caption: 'Joy',          gridClass: 'col-start-1 col-end-3 row-start-3 row-end-4' },
+  { id: 1, src: imgTogether, caption: 'Engagement Moments', gridClass: 'w-full max-w-2xl mx-auto' },
 ];
 
 export function GallerySection() {
@@ -106,7 +102,7 @@ export function GallerySection() {
               transition={{ delay: 0.2 }}
               className="text-black/70 max-w-2xl mx-auto mb-8"
             >
-              A collection of moments that tell our story
+              A special moment capturing our journey
             </motion.p>
             <div className="flex items-center justify-center gap-4">
               <motion.div
@@ -134,93 +130,54 @@ export function GallerySection() {
           </div>
         </ScrollReveal>
 
-        {/* Gallery Grid - Bento Box Style */}
-        <div className="grid grid-cols-3 gap-3 md:gap-4 auto-rows-[250px] md:auto-rows-[280px]">
-          {galleryImages.map((image, index) => (
+        {/* Single Engagement Photo Display */}
+        <div className="flex justify-center">
+          {galleryImages.map((image) => (
             <motion.button
               key={image.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ 
-                duration: 0.6, 
-                delay: index * 0.05,
-                ease: [0.25, 0.1, 0.25, 1]
-              }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
               onClick={() => openLightbox(image.id)}
-              className={`relative overflow-hidden group cursor-pointer ${image.gridClass}`}
+              className="relative overflow-hidden group cursor-pointer w-full max-w-2xl h-[420px] md:h-[520px] rounded-lg border border-black/10 shadow-lg"
             >
               {/* Image with frame effect */}
-              <div className="absolute inset-0 p-2 md:p-3">
-                <div className="relative w-full h-full overflow-hidden">
+              <div className="absolute inset-0 p-3 md:p-4">
+                <div className="relative w-full h-full overflow-hidden rounded">
                   {/* Golden border frame */}
                   <motion.div
                     initial={{ opacity: 0 }}
                     whileHover={{ opacity: 1 }}
                     transition={{ duration: 0.3 }}
-                    className="absolute inset-0 border-2 border-[#C4A57B] z-10 pointer-events-none"
+                    className="absolute inset-0 border-2 border-[#C4A57B] z-10 pointer-events-none rounded"
                   />
                   
                   {/* Corner accents */}
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileHover={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3 }}
-                    className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#C4A57B] z-10 pointer-events-none"
-                  />
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileHover={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3 }}
-                    className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#C4A57B] z-10 pointer-events-none"
-                  />
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileHover={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3 }}
-                    className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#C4A57B] z-10 pointer-events-none"
-                  />
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileHover={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3 }}
-                    className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#C4A57B] z-10 pointer-events-none"
-                  />
+                  <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#C4A57B] z-10 pointer-events-none" />
+                  <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#C4A57B] z-10 pointer-events-none" />
+                  <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#C4A57B] z-10 pointer-events-none" />
+                  <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#C4A57B] z-10 pointer-events-none" />
 
                   {/* Image */}
                   <motion.img
                     src={image.src}
                     alt={image.caption}
-                    className="w-full h-full object-cover"
-                    whileHover={{ scale: 1.15 }}
-                    transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+                    className="w-full h-full object-cover object-center"
+                    whileHover={{ scale: 1.08 }}
+                    transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
                   />
 
                   {/* Gradient Overlay */}
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
-                    transition={{ duration: 0.4 }}
-                    className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"
-                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
 
                   {/* Caption */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileHover={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 0.1 }}
-                    className="absolute bottom-0 left-0 right-0 p-4 md:p-6"
-                  >
-                    <p className="font-serif text-white text-lg md:text-2xl tracking-wide mb-1">
+                  <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-center">
+                    <p className="font-serif text-white text-2xl md:text-3xl tracking-wide mb-2">
                       {image.caption}
                     </p>
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileHover={{ width: '100%' }}
-                      transition={{ duration: 0.4, delay: 0.2 }}
-                      className="h-px bg-[#C4A57B]"
-                    />
-                  </motion.div>
+                    <div className="w-24 h-px bg-gradient-to-r from-transparent via-[#C4A57B] to-transparent mx-auto" />
+                  </div>
                 </div>
               </div>
 

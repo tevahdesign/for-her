@@ -161,12 +161,6 @@ export function EventsSection() {
                       {event.date} · {event.time}
                     </p>
                   </div>
-                  <motion.div
-                    animate={{ rotate: openEvent === event.id ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <ChevronDown className="w-6 h-6 text-[#C4A57B]" />
-                  </motion.div>
                 </button>
                 <AnimatePresence>
                   {openEvent === event.id && (
