@@ -36,63 +36,41 @@ export function EventsSection() {
   };
 
   const handleAddToCalendar = (event: Event) => {
-    // Format dates for Google Calendar
-    // Google Calendar uses format: YYYYMMDDTHHmmss
-    const formatDateForGoogle = (dateStr: string, timeStr: string) => {
-      // Parse the date and time
-      const dateParts = dateStr.split(' ');
-      const day = parseInt(dateParts[1]);
-      const month = dateParts[2];
-      const year = parseInt(dateParts[3] || '2026');
-      
-      // Convert month name to number
-      const monthMap: { [key: string]: number } = {
-        'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3,
-        'May': 4, 'Jun': 5, 'Jul': 6, 'Aug': 7,
-        'Sep': 8, 'Oct': 9, 'November': 10, 'December': 11
-      };
-      
-      // Parse time
-      const timeParts = timeStr.split(' – ')[0] || timeStr; // Get start time
-      const [time, period] = timeParts.split(' ');
-      let [hours, minutes] = time.split(':').map(Number);
-      if (isNaN(minutes)) minutes = 0;
-      
-      // Convert to 24-hour format
-      if (period === 'PM' && hours !== 12) hours += 12;
-      if (period === 'AM' && hours === 12) hours = 0;
-      
-      // Create date object
-      const startDate = new Date(year, monthMap[month] ?? 9, day || 24, hours || 17, minutes || 0);
-      
-      // Set end time
-      const endDate = new Date(startDate);
-      endDate.setHours(startDate.getHours() + (event.id === 'wedding' ? 3 : 3));
-      
-      // Format as YYYYMMDDTHHmmss
-      const formatDateTime = (date: Date) => {
-        const y = date.getFullYear();
-        const m = String(date.getMonth() + 1).padStart(2, '0');
-        const d = String(date.getDate()).padStart(2, '0');
-        const h = String(date.getHours()).padStart(2, '0');
-        const min = String(date.getMinutes()).padStart(2, '0');
-        const s = '00';
-        return `${y}${m}${d}T${h}${min}${s}`;
-      };
-      
-      return {
-        start: formatDateTime(startDate),
-        end: formatDateTime(endDate)
-      };
-    };
-    
-    const { start, end } = formatDateForGoogle(event.date, event.time);
+    let startStr = '';
+    let endStr = '';
+
+    if (event.id === 'reception') {
+      // Saturday, 24 October 2026: 5:00 PM to 8:00 PM
+      startStr = '20261024T170000';
+      endStr = '20261024T200000';
+    } else if (event.id === 'wedding') {
+      // Sunday, 25 October 2026: 10:30 AM to 1:30 PM
+      startStr = '20261025T103000';
+      endStr = '20261025T133000';
+    } else {
+      // Fallback parser
+      const dayMatch = event.date.match(/\b(\d{1,2})(st|nd|rd|th)?\b/i);
+      const yearMatch = event.date.match(/\b(20\d\d)\b/);
+      const day = dayMatch ? parseInt(dayMatch[1]) : 24;
+      const year = yearMatch ? parseInt(yearMatch[1]) : 2026;
+
+      const pad = (n: number) => String(n).padStart(2, '0');
+      const dayFormatted = pad(day);
+
+      if (event.time.includes('10:30')) {
+        startStr = `${year}10${dayFormatted}T103000`;
+        endStr = `${year}10${dayFormatted}T133000`;
+      } else {
+        startStr = `${year}10${dayFormatted}T170000`;
+        endStr = `${year}10${dayFormatted}T200000`;
+      }
+    }
     
     // Create Google Calendar URL
     const googleCalendarUrl = new URL('https://calendar.google.com/calendar/render');
     googleCalendarUrl.searchParams.append('action', 'TEMPLATE');
     googleCalendarUrl.searchParams.append('text', `${event.name} - Gana & Vinu's Wedding`);
-    googleCalendarUrl.searchParams.append('dates', `${start}/${end}`);
+    googleCalendarUrl.searchParams.append('dates', `${startStr}/${endStr}`);
     googleCalendarUrl.searchParams.append('details', `Join us for ${event.name} at Gana & Vinu's wedding celebration.`);
     googleCalendarUrl.searchParams.append('location', event.venue);
     
