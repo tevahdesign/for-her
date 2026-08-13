@@ -258,124 +258,106 @@ export function GallerySection() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 backdrop-blur-sm"
+            className="fixed inset-0 z-[100] bg-black/95 flex flex-col items-center justify-center p-4 md:p-8 backdrop-blur-md"
             onClick={closeLightbox}
           >
-            {/* Decorative corners in lightbox */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 0.3, scale: 1 }}
-              exit={{ opacity: 0, scale: 0 }}
-              className="absolute top-8 left-8 w-16 h-16 border-t-2 border-l-2 border-[#C4A57B] pointer-events-none"
-            />
-            <motion.div
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 0.3, scale: 1 }}
-              exit={{ opacity: 0, scale: 0 }}
-              className="absolute top-8 right-8 w-16 h-16 border-t-2 border-r-2 border-[#C4A57B] pointer-events-none"
-            />
-            <motion.div
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 0.3, scale: 1 }}
-              exit={{ opacity: 0, scale: 0 }}
-              className="absolute bottom-8 left-8 w-16 h-16 border-b-2 border-l-2 border-[#C4A57B] pointer-events-none"
-            />
-            <motion.div
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 0.3, scale: 1 }}
-              exit={{ opacity: 0, scale: 0 }}
-              className="absolute bottom-8 right-8 w-16 h-16 border-b-2 border-r-2 border-[#C4A57B] pointer-events-none"
-            />
+            {/* Decorative corners in lightbox backdrop */}
+            <div className="absolute top-6 left-6 w-12 h-12 md:w-16 md:h-16 border-t-2 border-l-2 border-[#C4A57B]/40 pointer-events-none" />
+            <div className="absolute top-6 right-6 w-12 h-12 md:w-16 md:h-16 border-t-2 border-r-2 border-[#C4A57B]/40 pointer-events-none" />
+            <div className="absolute bottom-6 left-6 w-12 h-12 md:w-16 md:h-16 border-b-2 border-l-2 border-[#C4A57B]/40 pointer-events-none" />
+            <div className="absolute bottom-6 right-6 w-12 h-12 md:w-16 md:h-16 border-b-2 border-r-2 border-[#C4A57B]/40 pointer-events-none" />
 
             {/* Close Button */}
             <motion.button
-              initial={{ opacity: 0, scale: 0.8, rotate: -90 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              exit={{ opacity: 0, scale: 0.8, rotate: 90 }}
-              whileHover={{ scale: 1.2, rotate: 90 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              whileHover={{ scale: 1.15 }}
               onClick={(e) => {
                 e.stopPropagation();
                 closeLightbox();
               }}
-              className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center text-white hover:text-[#C4A57B] transition-colors z-10 bg-black/30 backdrop-blur-sm rounded-full"
+              className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center text-white hover:text-[#C4A57B] transition-colors z-20 bg-black/50 backdrop-blur-sm rounded-full border border-white/20 cursor-pointer"
+              aria-label="Close modal"
             >
               <X className="w-6 h-6" />
             </motion.button>
 
-            {/* Previous Button */}
+            {/* Navigation Buttons */}
             <motion.button
-              initial={{ opacity: 0, x: -50 }}
+              initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              whileHover={{ scale: 1.2, x: -5 }}
+              exit={{ opacity: 0, x: -20 }}
+              whileHover={{ scale: 1.15, x: -4 }}
               onClick={(e) => {
                 e.stopPropagation();
                 navigateImage('prev');
               }}
-              className="absolute left-6 w-12 h-12 flex items-center justify-center text-white hover:text-[#C4A57B] transition-colors z-10 bg-black/30 backdrop-blur-sm rounded-full"
+              className="absolute left-4 md:left-8 w-12 h-12 flex items-center justify-center text-white hover:text-[#C4A57B] transition-colors z-20 bg-black/50 backdrop-blur-sm rounded-full border border-white/20 cursor-pointer"
+              aria-label="Previous image"
             >
               <ChevronLeft className="w-6 h-6" />
             </motion.button>
 
-            {/* Next Button */}
             <motion.button
-              initial={{ opacity: 0, x: 50 }}
+              initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 50 }}
-              whileHover={{ scale: 1.2, x: 5 }}
+              exit={{ opacity: 0, x: 20 }}
+              whileHover={{ scale: 1.15, x: 4 }}
               onClick={(e) => {
                 e.stopPropagation();
                 navigateImage('next');
               }}
-              className="absolute right-6 w-12 h-12 flex items-center justify-center text-white hover:text-[#C4A57B] transition-colors z-10 bg-black/30 backdrop-blur-sm rounded-full"
+              className="absolute right-4 md:right-8 w-12 h-12 flex items-center justify-center text-white hover:text-[#C4A57B] transition-colors z-20 bg-black/50 backdrop-blur-sm rounded-full border border-white/20 cursor-pointer"
+              aria-label="Next image"
             >
               <ChevronRight className="w-6 h-6" />
             </motion.button>
 
-            {/* Image Container */}
+            {/* Modal Content Container */}
             <motion.div
-              initial={{ scale: 0.8, opacity: 0, rotateY: -20 }}
-              animate={{ scale: 1, opacity: 1, rotateY: 0 }}
-              exit={{ scale: 0.8, opacity: 0, rotateY: 20 }}
-              transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-              className="max-w-5xl max-h-[80vh] flex flex-col items-center"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+              className="relative max-w-4xl max-h-[85vh] flex flex-col items-center justify-center"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Frame around image */}
-              <div className="relative p-4 md:p-8 bg-gradient-to-br from-[#1a1a1a] to-black">
-                <div className="absolute inset-0 border-2 border-[#C4A57B]/50 pointer-events-none" />
-                <div className="absolute top-2 left-2 w-8 h-8 border-t-2 border-l-2 border-[#C4A57B] pointer-events-none" />
-                <div className="absolute top-2 right-2 w-8 h-8 border-t-2 border-r-2 border-[#C4A57B] pointer-events-none" />
-                <div className="absolute bottom-2 left-2 w-8 h-8 border-b-2 border-l-2 border-[#C4A57B] pointer-events-none" />
-                <div className="absolute bottom-2 right-2 w-8 h-8 border-b-2 border-r-2 border-[#C4A57B] pointer-events-none" />
-                
+              {/* Frame container */}
+              <div className="relative p-3 md:p-6 bg-gradient-to-br from-[#1c1a17] via-[#121110] to-[#0a0a0a] rounded-lg border border-[#C4A57B]/40 shadow-2xl flex items-center justify-center overflow-hidden">
+                {/* Frame Inner Accent Border */}
+                <div className="absolute inset-2 border border-[#C4A57B]/30 pointer-events-none rounded" />
+
+                {/* Frame Corner Ornaments */}
+                <div className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-[#C4A57B] pointer-events-none z-10" />
+                <div className="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 border-[#C4A57B] pointer-events-none z-10" />
+                <div className="absolute bottom-3 left-3 w-4 h-4 border-b-2 border-l-2 border-[#C4A57B] pointer-events-none z-10" />
+                <div className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-[#C4A57B] pointer-events-none z-10" />
+
+                {/* Image */}
                 <motion.img
                   key={currentImage.id}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3 }}
                   src={currentImage.src}
                   alt={currentImage.caption}
-                  className="max-w-full max-h-[70vh] object-contain"
+                  className="max-w-full max-h-[60vh] md:max-h-[65vh] object-contain rounded select-none z-0"
                 />
               </div>
-              
+
               {/* Caption */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                key={`caption-${currentImage.id}`}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.4 }}
-                className="text-center mt-6"
+                transition={{ delay: 0.15, duration: 0.3 }}
+                className="text-center mt-4 md:mt-6"
               >
-                <p className="font-serif text-white text-3xl tracking-wide mb-2">
+                <p className="font-serif text-white text-2xl md:text-3xl tracking-wide mb-2">
                   {currentImage.caption}
                 </p>
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: '100%' }}
-                  transition={{ delay: 0.5, duration: 0.6 }}
-                  className="h-px bg-gradient-to-r from-transparent via-[#C4A57B] to-transparent mx-auto"
-                />
+                <div className="w-24 h-px bg-gradient-to-r from-transparent via-[#C4A57B] to-transparent mx-auto" />
               </motion.div>
             </motion.div>
           </motion.div>
