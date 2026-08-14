@@ -13,6 +13,7 @@ interface GalleryImage {
   src: string;
   caption: string;
   gridClass: string;
+  objectPosition?: string;
 }
 
 // Layout mirrors the Figma design:
@@ -20,10 +21,10 @@ interface GalleryImage {
 // [Together  ] [Moments   ] [Forever  ]  row 2
 // [Joy               ] [Forever  ]       row 3
 const galleryImages: GalleryImage[] = [
-  { id: 1, src: imgTogether,     caption: 'Together',     gridClass: 'col-start-1 col-end-2 row-start-1 row-end-3' },
-  { id: 2, src: imgForever,      caption: 'Celebrations', gridClass: 'col-start-2 col-end-4 row-start-1 row-end-2' },
-  { id: 3, src: imgMoments,      caption: 'Moments',      gridClass: 'col-start-2 col-end-3 row-start-2 row-end-3' },
-  { id: 4, src: imgCelebrations, caption: 'Forever',      gridClass: 'col-start-3 col-end-4 row-start-2 row-end-3' },
+  { id: 1, src: imgTogether,     caption: 'Together',     gridClass: 'col-start-1 col-end-2 row-start-1 row-end-3', objectPosition: 'object-[center_top]' },
+  { id: 2, src: imgForever,      caption: 'Celebrations', gridClass: 'col-start-2 col-end-4 row-start-1 row-end-2', objectPosition: 'object-[center_top]' },
+  { id: 3, src: imgMoments,      caption: 'Moments',      gridClass: 'col-start-2 col-end-3 row-start-2 row-end-3', objectPosition: 'object-[center_top]' },
+  { id: 4, src: imgCelebrations, caption: 'Forever',      gridClass: 'col-start-3 col-end-4 row-start-2 row-end-3', objectPosition: 'object-[center_top]' },
 ];
 
 export function GallerySection() {
@@ -190,7 +191,7 @@ export function GallerySection() {
                   <motion.img
                     src={image.src}
                     alt={image.caption}
-                    className="w-full h-full object-cover"
+                    className={`w-full h-full object-cover ${image.objectPosition || 'object-[center_top]'}`}
                     whileHover={{ scale: 1.15 }}
                     transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
                   />
