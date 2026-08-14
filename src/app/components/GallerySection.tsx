@@ -21,10 +21,10 @@ interface GalleryImage {
 // [Together  ] [Moments   ] [Forever  ]  row 2
 // [Joy               ] [Forever  ]       row 3
 const galleryImages: GalleryImage[] = [
-  { id: 1, src: imgTogether,     caption: 'Together',     gridClass: 'md:col-span-1 md:row-span-2' },
-  { id: 2, src: imgCelebrations, caption: 'Celebrations', gridClass: 'md:col-span-2 md:row-span-1' },
-  { id: 3, src: imgMoments,      caption: 'Moments',      gridClass: 'md:col-span-1 md:row-span-1' },
-  { id: 4, src: imgForever,      caption: 'Forever',      gridClass: 'md:col-span-1 md:row-span-1' },
+  { id: 1, src: imgTogether,     caption: 'Together',     gridClass: 'md:col-span-1 md:row-span-2', objectPosition: 'object-center' },
+  { id: 2, src: imgForever,      caption: 'Celebrations', gridClass: 'md:col-span-2 md:row-span-1', objectPosition: 'object-[center_15%]' },
+  { id: 3, src: imgMoments,      caption: 'Moments',      gridClass: 'md:col-span-1 md:row-span-1', objectPosition: 'object-center' },
+  { id: 4, src: imgCelebrations, caption: 'Forever',      gridClass: 'md:col-span-1 md:row-span-1', objectPosition: 'object-center' },
 ];
 
 export function GallerySection() {
@@ -134,7 +134,7 @@ export function GallerySection() {
           </div>
         </ScrollReveal>
 
-        {/* Bento Grid matching reference screenshot */}
+        {/* Bento Grid matching reference screenshot - Pure photos without frame or text before click */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 h-auto md:h-[580px] lg:h-[620px]">
           {galleryImages.map((image, index) => (
             <motion.button
@@ -148,44 +148,19 @@ export function GallerySection() {
                 ease: [0.25, 0.1, 0.25, 1]
               }}
               onClick={() => openLightbox(image.id)}
-              className={`relative overflow-hidden group cursor-pointer w-full h-[280px] md:h-full rounded-none md:rounded-sm bg-black ${image.gridClass}`}
+              className={`relative overflow-hidden group cursor-pointer w-full h-[280px] md:h-full bg-black ${image.gridClass}`}
             >
-              {/* Full Image edge-to-edge */}
+              {/* Pure Photo edge-to-edge - No border frame or text overlay before click */}
               <motion.img
                 src={image.src}
                 alt={image.caption}
-                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out ${image.objectPosition || 'object-center'}`}
               />
 
-              {/* Golden border frame on hover */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
-                className="absolute inset-0 border-2 border-[#C4A57B] z-10 pointer-events-none"
-              />
-
-              {/* Corner accents */}
-              <div className="absolute top-3 left-3 w-5 h-5 border-t-2 border-l-2 border-[#C4A57B] z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="absolute top-3 right-3 w-5 h-5 border-t-2 border-r-2 border-[#C4A57B] z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="absolute bottom-3 left-3 w-5 h-5 border-b-2 border-l-2 border-[#C4A57B] z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="absolute bottom-3 right-3 w-5 h-5 border-b-2 border-r-2 border-[#C4A57B] z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
-
-              {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-90 transition-opacity pointer-events-none" />
-
-              {/* Caption */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 text-center z-10">
-                <p className="font-serif text-white text-2xl md:text-3xl tracking-wide mb-1">
-                  {image.caption}
-                </p>
-                <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#C4A57B] to-transparent mx-auto" />
-              </div>
-
-              {/* Shine effect on hover */}
+              {/* Subtle hover shine effect */}
               <motion.div
                 initial={{ x: '-100%', opacity: 0 }}
-                whileHover={{ x: '200%', opacity: [0, 0.3, 0] }}
+                whileHover={{ x: '200%', opacity: [0, 0.2, 0] }}
                 transition={{ duration: 0.8 }}
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none"
                 style={{ skewX: -20 }}

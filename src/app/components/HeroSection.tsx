@@ -90,7 +90,7 @@ export function HeroSection({ onViewEvents, onRSVP }: HeroSectionProps) {
 
         {/* Names — writing animation */}
         <h1
-          style={{ fontFamily: "'Waiting for the Sunrise', cursive", lineHeight: 1 }}
+          style={{ fontFamily: "var(--couple-font, 'Waiting for the Sunrise', cursive)", lineHeight: 1 }}
           className="text-[70px] md:text-[128px] text-[#C4A57B] tracking-[-1.5px] md:tracking-[-3.2px] mb-0 whitespace-nowrap flex items-center justify-center"
         >
           {"Gana".split("").map((char, i) => (

@@ -8,8 +8,10 @@ import { FamilySection } from './components/FamilySection';
 import { RSVPSection } from './components/RSVPSection';
 import { Footer } from './components/Footer';
 import { Toaster } from './components/ui/sonner';
+import { useDynamicFont } from './hooks/useDynamicFont';
 
 export default function App() {
+  useDynamicFont();
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {

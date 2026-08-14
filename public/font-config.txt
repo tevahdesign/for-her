@@ -1,0 +1,3 @@
+# Google Font Config File
+# Edit the Google Font URL below to dynamically change the couple name font style across the website
+https://fonts.googleapis.com/css2?family=Waiting+for+the+Sunrise&display=swap
