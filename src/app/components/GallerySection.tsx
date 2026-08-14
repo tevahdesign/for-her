@@ -21,9 +21,9 @@ interface GalleryImage {
 // [Joy               ] [Forever  ]       row 3
 const galleryImages: GalleryImage[] = [
   { id: 1, src: imgTogether,     caption: 'Together',     gridClass: 'col-start-1 col-end-2 row-start-1 row-end-3' },
-  { id: 2, src: imgTogether,     caption: 'Celebrations', gridClass: 'col-start-2 col-end-4 row-start-1 row-end-2' },
+  { id: 2, src: imgCelebrations, caption: 'Celebrations', gridClass: 'col-start-2 col-end-4 row-start-1 row-end-2' },
   { id: 3, src: imgMoments,      caption: 'Moments',      gridClass: 'col-start-2 col-end-3 row-start-2 row-end-3' },
-  { id: 4, src: imgCelebrations, caption: 'Forever',      gridClass: 'col-start-3 col-end-4 row-start-2 row-end-4' },
+  { id: 4, src: imgForever,      caption: 'Forever',      gridClass: 'col-start-3 col-end-4 row-start-2 row-end-4' },
   { id: 5, src: imgJoy,          caption: 'Joy',          gridClass: 'col-start-1 col-end-3 row-start-3 row-end-4' },
 ];
 
