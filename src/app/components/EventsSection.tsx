@@ -149,7 +149,7 @@ export function EventsSection() {
                 whileHover={{ scale: 1.01, transition: { duration: 0.2 } }}
                 className="border border-black/10 bg-white/50 backdrop-blur-sm transition-all duration-300 hover:border-[#C4A57B]/50 hover:shadow-lg p-8"
               >
-                <div className="pb-6 border-b border-black/5">
+                <div>
                   <h3 className="font-serif text-3xl text-black mb-2">
                     {event.name}
                   </h3>
@@ -158,36 +158,38 @@ export function EventsSection() {
                   </p>
                 </div>
 
-                <div className="pt-6 space-y-6">
-                  <div className="flex items-start gap-4">
-                    <MapPin className="w-5 h-5 text-[#C4A57B] mt-1 flex-shrink-0" />
-                    <div>
-                      <p className="text-xs tracking-widest uppercase text-black/50 font-sans mb-1">Venue</p>
-                      <p className="font-serif text-lg text-black">{event.venue}</p>
+                {event.id === 'reception' && (
+                  <div className="pt-6 mt-6 border-t border-black/5 space-y-6">
+                    <div className="flex items-start gap-4">
+                      <MapPin className="w-5 h-5 text-[#C4A57B] mt-1 flex-shrink-0" />
+                      <div>
+                        <p className="text-xs tracking-widest uppercase text-black/50 font-sans mb-1">Venue</p>
+                        <p className="font-serif text-lg text-black">{event.venue}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap gap-3 pt-2">
+                      <motion.button
+                        whileHover={{ scale: 1.05, y: -2 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => handleAddToCalendar(event)}
+                        className="flex items-center gap-2 px-6 py-2.5 border border-black text-black hover:bg-black hover:text-white transition-all duration-300 text-sm tracking-wider uppercase font-sans cursor-pointer"
+                      >
+                        <Calendar className="w-4 h-4" />
+                        Add to Calendar
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.05, y: -2 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => handleGetDirections(event.id)}
+                        className="flex items-center gap-2 px-6 py-2.5 border border-[#C4A57B] text-black hover:bg-[#C4A57B] transition-all duration-300 text-sm tracking-wider uppercase font-sans cursor-pointer"
+                      >
+                        <MapPin className="w-4 h-4" />
+                        Get Directions
+                      </motion.button>
                     </div>
                   </div>
-
-                  <div className="flex flex-wrap gap-3 pt-2">
-                    <motion.button
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => handleAddToCalendar(event)}
-                      className="flex items-center gap-2 px-6 py-2.5 border border-black text-black hover:bg-black hover:text-white transition-all duration-300 text-sm tracking-wider uppercase font-sans cursor-pointer"
-                    >
-                      <Calendar className="w-4 h-4" />
-                      Add to Calendar
-                    </motion.button>
-                    <motion.button
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => handleGetDirections(event.id)}
-                      className="flex items-center gap-2 px-6 py-2.5 border border-[#C4A57B] text-black hover:bg-[#C4A57B] transition-all duration-300 text-sm tracking-wider uppercase font-sans cursor-pointer"
-                    >
-                      <MapPin className="w-4 h-4" />
-                      Get Directions
-                    </motion.button>
-                  </div>
-                </div>
+                )}
               </motion.div>
             </ScrollReveal>
           ))}
