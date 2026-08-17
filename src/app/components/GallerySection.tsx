@@ -16,15 +16,16 @@ interface GalleryImage {
   objectPosition?: string;
 }
 
-// Layout mirrors the Figma design:
-// [Together  ] [Celebrations          ]  row 1
-// [Together  ] [Moments   ] [Forever  ]  row 2
-// [Joy               ] [Forever  ]       row 3
+// Layout mirrors the Figma design (3x3 grid with 5 tiles):
+// Row 1: [Together  ] [Celebrations          ]
+// Row 2: [Together  ] [Moments   ] [Forever  ]
+// Row 3: [Joy               ] [Forever  ]
 const galleryImages: GalleryImage[] = [
   { id: 1, src: imgTogether,     caption: 'Together',     gridClass: 'md:col-span-1 md:row-span-2', objectPosition: 'object-center' },
-  { id: 2, src: imgForever,      caption: 'Celebrations', gridClass: 'md:col-span-2 md:row-span-1', objectPosition: 'object-[center_15%]' },
+  { id: 2, src: imgCelebrations, caption: 'Celebrations', gridClass: 'md:col-span-2 md:row-span-1', objectPosition: 'object-center' },
   { id: 3, src: imgMoments,      caption: 'Moments',      gridClass: 'md:col-span-1 md:row-span-1', objectPosition: 'object-center' },
-  { id: 4, src: imgCelebrations, caption: 'Forever',      gridClass: 'md:col-span-1 md:row-span-1', objectPosition: 'object-center' },
+  { id: 4, src: imgForever,      caption: 'Forever',      gridClass: 'md:col-span-1 md:row-span-2', objectPosition: 'object-center' },
+  { id: 5, src: imgJoy,          caption: 'Joy',          gridClass: 'md:col-span-2 md:row-span-1', objectPosition: 'object-center' },
 ];
 
 export function GallerySection() {
@@ -135,7 +136,7 @@ export function GallerySection() {
         </ScrollReveal>
 
         {/* Bento Grid matching reference screenshot - Pure photos without frame or text before click */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 h-auto md:h-[580px] lg:h-[620px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 h-auto md:h-[750px] lg:h-[820px]">
           {galleryImages.map((image, index) => (
             <motion.button
               key={image.id}
