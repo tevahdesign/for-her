@@ -1,2 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Poppins:wght@300;400;500;600;700&family=Pinyon+Script&family=Great+Vibes&family=Sacramento&family=Waiting+for+the+Sunrise&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Great+Vibes&family=Inter:wght@300;400;500;600&family=Pinyon+Script&family=Poppins:wght@300;400;500;600;700&family=Sacramento&family=Waiting+for+the+Sunrise&display=swap');
+
+:root {
+  --couple-font: 'Great Vibes', 'Pinyon Script', 'Alex Brush', cursive;
+}
+
 

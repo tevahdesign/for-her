@@ -13,8 +13,8 @@ export function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            style={{ fontFamily: "var(--couple-font, 'Waiting for the Sunrise', cursive)" }}
-            className="text-4xl md:text-5xl tracking-wide text-[#C4A57B]"
+            style={{ fontFamily: "var(--couple-font, 'Great Vibes', cursive)" }}
+            className="text-5xl md:text-6xl tracking-wide text-[#C4A57B] font-normal"
           >
             Gana <motion.span
               initial={{ scale: 0 }}
