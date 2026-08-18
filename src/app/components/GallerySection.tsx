@@ -6,11 +6,7 @@ import imgTogether from '@/imports/PremiumWeddingInvitationWebsite-2/f2620f3ada4
 import imgCelebrations from '@/imports/PremiumWeddingInvitationWebsite-2/eff8209a870d74aaac3e7bdcfb817ab959242085.png';
 import imgMoments from '@/imports/PremiumWeddingInvitationWebsite-2/59e8811671b260eb2ad7760092f378a5f8e89d4d.png';
 import imgForever from '@/imports/PremiumWeddingInvitationWebsite-2/193921cf0ec6df597324de4ce406260d3c07622f.jpg';
-<<<<<<< HEAD
-import imgJoy from '@/imports/PremiumWeddingInvitationWebsite-2/f53863290033ef9687cffed5bf4aeb863323222a.png';
-=======
 import imgJoy from '@/imports/PremiumWeddingInvitationWebsite-2/1001213957.png';
->>>>>>> dc0a6a7 (Initial commit)
 
 interface GalleryImage {
   id: number;
@@ -25,19 +21,11 @@ interface GalleryImage {
 // Row 2: [Together  ] [Moments   ] [Forever  ]
 // Row 3: [Joy               ] [Forever  ]
 const galleryImages: GalleryImage[] = [
-<<<<<<< HEAD
-  { id: 1, src: imgTogether,     caption: 'Together',     gridClass: 'md:col-span-1 md:row-span-2', objectPosition: 'object-center' },
-  { id: 2, src: imgCelebrations, caption: 'Celebrations', gridClass: 'md:col-span-2 md:row-span-1', objectPosition: 'object-center' },
-  { id: 3, src: imgMoments,      caption: 'Moments',      gridClass: 'md:col-span-1 md:row-span-1', objectPosition: 'object-center' },
-  { id: 4, src: imgForever,      caption: 'Forever',      gridClass: 'md:col-span-1 md:row-span-2', objectPosition: 'object-center' },
-  { id: 5, src: imgJoy,          caption: 'Joy',          gridClass: 'md:col-span-2 md:row-span-1', objectPosition: 'object-center' },
-=======
   { id: 1, src: imgTogether,     caption: 'Together',     gridClass: 'col-span-1 row-span-2', objectPosition: 'center top' },
   { id: 2, src: imgCelebrations, caption: 'Forever',      gridClass: 'col-span-2 row-span-1', objectPosition: 'center 52%' },
   { id: 3, src: imgMoments,      caption: 'Moments',      gridClass: 'col-span-1 row-span-1', objectPosition: 'center top' },
   { id: 4, src: imgForever,      caption: 'Celebrations', gridClass: 'col-span-1 row-span-2', objectPosition: 'center top' },
   { id: 5, src: imgJoy,          caption: 'Joy',          gridClass: 'col-span-2 row-span-1', objectPosition: 'center top' },
->>>>>>> dc0a6a7 (Initial commit)
 ];
 
 export function GallerySection() {
@@ -148,11 +136,7 @@ export function GallerySection() {
         </ScrollReveal>
 
         {/* Bento Grid matching reference screenshot - Pure photos without frame or text before click */}
-<<<<<<< HEAD
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 h-auto md:h-[750px] lg:h-[820px]">
-=======
         <div className="grid grid-cols-3 gap-2.5 sm:gap-4 md:gap-5 h-[460px] min-[400px]:h-[520px] sm:h-[640px] md:h-[750px] lg:h-[820px]">
->>>>>>> dc0a6a7 (Initial commit)
           {galleryImages.map((image, index) => (
             <motion.button
               key={image.id}
@@ -165,22 +149,14 @@ export function GallerySection() {
                 ease: [0.25, 0.1, 0.25, 1]
               }}
               onClick={() => openLightbox(image.id)}
-<<<<<<< HEAD
-              className={`relative overflow-hidden group cursor-pointer w-full h-[280px] md:h-full bg-black ${image.gridClass}`}
-=======
               className={`relative overflow-hidden group cursor-pointer w-full h-full bg-black ${image.gridClass}`}
->>>>>>> dc0a6a7 (Initial commit)
             >
               {/* Pure Photo edge-to-edge - No border frame or text overlay before click */}
               <motion.img
                 src={image.src}
                 alt={image.caption}
-<<<<<<< HEAD
-                className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out ${image.objectPosition || 'object-center'}`}
-=======
                 style={{ objectPosition: image.objectPosition || 'center top' }}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
->>>>>>> dc0a6a7 (Initial commit)
               />
 
               {/* Subtle hover shine effect */}

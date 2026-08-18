@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Great+Vibes&family=Inter:wght@300;400;500;600&family=Pinyon+Script&family=Poppins:wght@300;400;500;600;700&family=Sacramento&family=Waiting+for+the+Sunrise&display=swap');
-
-:root {
-  --couple-font: 'Great Vibes', 'Pinyon Script', 'Alex Brush', cursive;
-}
-
-
-=======
 @font-face {
   font-family: 'Barrington';
   src: url('/fonts/Barrington.ttf') format('truetype');
@@ -20,4 +11,3 @@
 :root {
   --couple-font: 'Barrington', 'Great Vibes', 'Pinyon Script', 'Alex Brush', cursive;
 }
->>>>>>> dc0a6a7 (Initial commit)

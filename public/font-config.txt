@@ -1,11 +1,5 @@
-<<<<<<< HEAD
-# Google Font Config File
-# Edit the Google Font URL below to dynamically change the couple name font style across the website
-https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap
-=======
 # Font Config File
 # The couple name font style is set to Barrington Script font (/fonts/Barrington.ttf)
 Font Family: Barrington Script
 Font File: /fonts/Barrington.ttf
 Fallback: https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap
->>>>>>> dc0a6a7 (Initial commit)

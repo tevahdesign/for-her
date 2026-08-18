@@ -3,11 +3,7 @@ import imgGallerySection from "./eff8209a870d74aaac3e7bdcfb817ab959242085.png";
 import imgImageTogether from "./f2620f3ada46f4253490618623d4b411fba7cae6.png";
 import imgImageMoments from "./59e8811671b260eb2ad7760092f378a5f8e89d4d.png";
 import imgImageForever from "./193921cf0ec6df597324de4ce406260d3c07622f.jpg";
-<<<<<<< HEAD
-import imgImageJoy from "./f53863290033ef9687cffed5bf4aeb863323222a.png";
-=======
 import imgImageJoy from "./1001213957.png";
->>>>>>> dc0a6a7 (Initial commit)
 
 function Container() {
   return <div className="absolute border border-[#c4a57b] border-solid left-[1220px] opacity-5 rounded-[33554400px] size-[256px] top-[80px]" data-name="Container" />;

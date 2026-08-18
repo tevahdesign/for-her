@@ -63,11 +63,7 @@ export function Navigation({ activeSection = 'home' }: NavigationProps) {
               className="relative z-10 transition-colors duration-300 group-hover:text-[#C4A57B]"
               style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.4rem' }}
             >
-<<<<<<< HEAD
-              G & V
-=======
               V & G
->>>>>>> dc0a6a7 (Initial commit)
             </span>
             <motion.span
               className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#C4A57B] origin-left"

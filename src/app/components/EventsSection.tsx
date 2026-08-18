@@ -80,11 +80,7 @@ export function EventsSection() {
 
   const handleGetDirections = (eventId: string) => {
     if (eventId === 'reception') {
-<<<<<<< HEAD
-      window.open('https://www.google.com/maps/search/?api=1&query=Century+Convention+Centre+Mele+Chelari+Near+Calicut+University', '_blank');
-=======
       window.open('https://maps.app.goo.gl/MGwUsmqn6E3M7teE7', '_blank');
->>>>>>> dc0a6a7 (Initial commit)
     } else if (eventId === 'wedding') {
       window.open('https://www.google.com/maps/search/?api=1&query=Reef+Club+Resort+Eranhikkal+Calicut', '_blank');
     }
