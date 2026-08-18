@@ -72,14 +72,14 @@ export function HeroSection({ onViewEvents }: HeroSectionProps) {
       {/* Main content */}
       <div className="relative z-10 flex flex-col items-center text-center px-6 py-28 max-w-3xl mx-auto">
 
-        {/* Names — Vinu & Gana cursive script matching reference image */}
+        {/* Names — Gana & Vinu cursive script */}
         <h1
           style={{ fontFamily: "var(--couple-font, 'Barrington', 'Great Vibes', cursive)", lineHeight: 1.35 }}
           className="text-[36px] sm:text-[48px] md:text-[62px] lg:text-[72px] text-[#C4A57B] tracking-normal mt-2 mb-6 md:mb-8 whitespace-nowrap flex items-center justify-center font-normal drop-shadow-md"
         >
-          {"Vinu".split("").map((char, i) => (
+          {"Gana".split("").map((char, i) => (
             <motion.span
-              key={`v-${i}`}
+              key={`g-${i}`}
               initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.25, delay: 0.3 + i * 0.1, ease: "easeOut" }}
@@ -96,9 +96,9 @@ export function HeroSection({ onViewEvents }: HeroSectionProps) {
           >
             &
           </motion.span>
-          {"Gana".split("").map((char, i) => (
+          {"Vinu".split("").map((char, i) => (
             <motion.span
-              key={`g-${i}`}
+              key={`v-${i}`}
               initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.25, delay: 0.95 + i * 0.1, ease: "easeOut" }}
