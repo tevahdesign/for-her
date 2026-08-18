@@ -33,7 +33,7 @@ export function Footer() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xs sm:text-sm tracking-[0.3em] uppercase text-white/60 font-sans mt-2"
           >
-            24 & 25 October 2026
+            24 October 2026
           </motion.p>
 
           {/* Divider */}
