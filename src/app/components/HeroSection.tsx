@@ -7,6 +7,7 @@ interface HeroSectionProps {
   onRSVP: () => void;
 }
 
+<<<<<<< HEAD
 // Petal definitions matching the Figma import exactly
 const petals = [
   { paths: ['p24edbc00','p1db01200','p3b439af1','pb1c4e00','p1610fbc0'], left: '49.5%', top: '89.7%', rotate: -168.07, opacity: 0.43 },
@@ -59,10 +60,36 @@ export function HeroSection({ onViewEvents, onRSVP }: HeroSectionProps) {
         transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
       >
         <svg fill="none" height="17" viewBox="0 0 17.308 17.308" width="17">
+=======
+export function HeroSection({ onViewEvents }: HeroSectionProps) {
+  return (
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+
+      {/* Background image with reduced black overlay */}
+      <div className="absolute inset-0 z-0 bg-black">
+        <img
+          src={imgHeroBg}
+          alt="Vinu & Gana"
+          className="absolute inset-0 size-full object-cover object-center pointer-events-none opacity-70"
+        />
+        <div className="absolute inset-0 bg-black/35" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/25 to-black/70" />
+      </div>
+
+      {/* Top Sparkle Star - Centered above title */}
+      <motion.div
+        className="absolute pointer-events-none z-10"
+        style={{ left: '50%', top: '15%', transform: 'translateX(-50%)' }}
+        animate={{ opacity: [0.4, 0.9, 0.4], scale: [0.85, 1.15, 0.85] }}
+        transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <svg fill="none" height="18" viewBox="0 0 17.308 17.308" width="18">
+>>>>>>> dc0a6a7 (Initial commit)
           <path d={svgPaths.p36dadc00} opacity="0.86" stroke="#C4A57B" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.406" />
         </svg>
       </motion.div>
 
+<<<<<<< HEAD
       {/* Sparkle — mid right (from Container8 in import) */}
       <motion.div
         className="absolute pointer-events-none z-0"
@@ -99,6 +126,58 @@ export function HeroSection({ onViewEvents, onRSVP }: HeroSectionProps) {
               initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.25, delay: 0.5 + i * 0.1, ease: "easeOut" }}
+=======
+      {/* Side Sparkle Star - Mid right */}
+      <motion.div
+        className="absolute pointer-events-none z-10"
+        style={{ right: '12%', top: '46%' }}
+        animate={{ opacity: [0.2, 0.7, 0.2], scale: [0.9, 1.2, 0.9] }}
+        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+      >
+        <svg fill="none" height="15" viewBox="0 0 13.862 13.862" width="15">
+          <path d={svgPaths.p30ce8180} opacity="0.6" stroke="#C4A57B" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+        </svg>
+      </motion.div>
+
+      {/* Side Sparkle Star - Bottom Left near button */}
+      <motion.div
+        className="absolute pointer-events-none z-10"
+        style={{ left: '16%', bottom: '22%' }}
+        animate={{ opacity: [0.3, 0.8, 0.3], scale: [0.9, 1.15, 0.9] }}
+        transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+      >
+        <svg fill="none" height="16" viewBox="0 0 13.862 13.862" width="16">
+          <path d={svgPaths.p30ce8180} opacity="0.65" stroke="#C4A57B" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+        </svg>
+      </motion.div>
+
+      {/* Side Sparkle Star - Bottom Right near button */}
+      <motion.div
+        className="absolute pointer-events-none z-10"
+        style={{ right: '16%', bottom: '22%' }}
+        animate={{ opacity: [0.3, 0.8, 0.3], scale: [0.9, 1.15, 0.9] }}
+        transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+      >
+        <svg fill="none" height="16" viewBox="0 0 13.862 13.862" width="16">
+          <path d={svgPaths.p30ce8180} opacity="0.65" stroke="#C4A57B" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+        </svg>
+      </motion.div>
+
+      {/* Main content */}
+      <div className="relative z-10 flex flex-col items-center text-center px-6 py-28 max-w-3xl mx-auto">
+
+        {/* Names — Vinu & Gana cursive script matching reference image */}
+        <h1
+          style={{ fontFamily: "var(--couple-font, 'Barrington', 'Great Vibes', cursive)", lineHeight: 1.35 }}
+          className="text-[36px] sm:text-[48px] md:text-[62px] lg:text-[72px] text-[#C4A57B] tracking-normal mt-2 mb-6 md:mb-8 whitespace-nowrap flex items-center justify-center font-normal drop-shadow-md"
+        >
+          {"Vinu".split("").map((char, i) => (
+            <motion.span
+              key={`v-${i}`}
+              initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.25, delay: 0.3 + i * 0.1, ease: "easeOut" }}
+>>>>>>> dc0a6a7 (Initial commit)
               className="inline-block"
             >
               {char}
@@ -107,6 +186,7 @@ export function HeroSection({ onViewEvents, onRSVP }: HeroSectionProps) {
           <motion.span
             initial={{ opacity: 0, scale: 0.4 }}
             animate={{ opacity: 1, scale: 1 }}
+<<<<<<< HEAD
             transition={{ duration: 0.3, delay: 1.0, type: "spring", stiffness: 260 }}
             className="inline-block text-white text-[45px] md:text-[80px] mx-3"
           >
@@ -118,6 +198,19 @@ export function HeroSection({ onViewEvents, onRSVP }: HeroSectionProps) {
               initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.25, delay: 1.15 + i * 0.1, ease: "easeOut" }}
+=======
+            transition={{ duration: 0.3, delay: 0.8, type: "spring", stiffness: 260 }}
+            className="inline-block text-[#F4E3D0] text-[26px] sm:text-[36px] md:text-[46px] lg:text-[54px] mx-2.5"
+          >
+            &
+          </motion.span>
+          {"Gana".split("").map((char, i) => (
+            <motion.span
+              key={`g-${i}`}
+              initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.25, delay: 0.95 + i * 0.1, ease: "easeOut" }}
+>>>>>>> dc0a6a7 (Initial commit)
               className="inline-block"
             >
               {char}
@@ -125,6 +218,7 @@ export function HeroSection({ onViewEvents, onRSVP }: HeroSectionProps) {
           ))}
         </h1>
 
+<<<<<<< HEAD
         {/* Divider */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -137,10 +231,25 @@ export function HeroSection({ onViewEvents, onRSVP }: HeroSectionProps) {
             animate={{ width: 96 }}
             transition={{ duration: 0.8, delay: 1.8 }}
             className="h-px bg-[#C4A57B]"
+=======
+        {/* Divider with dot in center matching image */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 1.4 }}
+          className="flex items-center justify-center gap-4 py-2 mt-4 mb-3 w-full"
+        >
+          <motion.div
+            initial={{ width: 0 }}
+            animate={{ width: 110 }}
+            transition={{ duration: 0.8, delay: 1.5 }}
+            className="h-px bg-[#C4A57B]/70"
+>>>>>>> dc0a6a7 (Initial commit)
           />
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
+<<<<<<< HEAD
             transition={{ duration: 0.4, delay: 2.1, type: "spring" }}
             className="w-2 h-2 rounded-full bg-[#C4A57B]"
           />
@@ -174,16 +283,73 @@ export function HeroSection({ onViewEvents, onRSVP }: HeroSectionProps) {
         </motion.div>
 
         {/* View Events button */}
+=======
+            transition={{ duration: 0.4, delay: 1.8, type: "spring" }}
+            className="w-2.5 h-2.5 rounded-full bg-[#C4A57B]"
+          />
+          <motion.div
+            initial={{ width: 0 }}
+            animate={{ width: 110 }}
+            transition={{ duration: 0.8, delay: 1.5 }}
+            className="h-px bg-[#C4A57B]/70"
+          />
+        </motion.div>
+
+        {/* Request The Honor Of Your Presence with sparkle star next to it */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.9 }}
+          className="flex items-center justify-center gap-1.5 sm:gap-2 my-4 sm:my-5 md:my-6 w-full max-w-full px-3"
+        >
+          <p
+            className="font-serif italic text-[12.5px] min-[360px]:text-[14px] min-[400px]:text-[15.5px] sm:text-[19px] md:text-[23px] text-[#C4A57B] font-normal tracking-wide whitespace-nowrap text-center"
+          >
+            Request The Honor Of Your Presence
+          </p>
+          <svg fill="none" height="13" viewBox="0 0 13.862 13.862" width="13" className="inline-block shrink-0 mb-0.5">
+            <path d={svgPaths.p30ce8180} opacity="0.8" stroke="#C4A57B" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+          </svg>
+        </motion.div>
+
+        {/* Date — Cormorant Garamond Serif matching image */}
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 2.1 }}
+          className="font-serif text-[24px] sm:text-[30px] md:text-[36px] tracking-wide text-white font-normal mt-1 mb-3"
+        >
+          Saturday, Oct 24th
+        </motion.p>
+
+        {/* Venue — Cormorant Garamond Serif lines matching image */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 2.3 }}
+          className="font-serif text-[15px] sm:text-[17px] md:text-[19px] text-white/80 font-normal leading-relaxed tracking-wider space-y-0.5"
+        >
+          <p>Century Convention Centre,</p>
+          <p>Mele Chelari, Near Calicut University</p>
+        </motion.div>
+
+        {/* VIEW EVENTS button — Solid black button with tracked text matching image */}
+>>>>>>> dc0a6a7 (Initial commit)
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 2.5 }}
+<<<<<<< HEAD
           className="mt-16"
+=======
+          className="mt-10"
+>>>>>>> dc0a6a7 (Initial commit)
         >
           <motion.button
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
             onClick={onViewEvents}
+<<<<<<< HEAD
             className="bg-black border border-black text-white text-[14px] tracking-[0.7px] uppercase font-sans font-medium px-8 py-3 overflow-hidden relative"
           >
             <span className="relative z-10">View Events</span>
@@ -195,12 +361,21 @@ export function HeroSection({ onViewEvents, onRSVP }: HeroSectionProps) {
             />
           </motion.button>
         </motion.div>
+=======
+            className="bg-black border border-white/20 hover:border-[#C4A57B] text-white text-[13px] sm:text-[14px] tracking-[3.5px] uppercase font-sans font-medium px-9 py-3.5 shadow-xl transition-colors duration-300 cursor-pointer"
+          >
+            VIEW EVENTS
+          </motion.button>
+        </motion.div>
+
+>>>>>>> dc0a6a7 (Initial commit)
       </div>
 
       {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
+<<<<<<< HEAD
         transition={{ duration: 1, delay: 3 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
       >
@@ -211,6 +386,18 @@ export function HeroSection({ onViewEvents, onRSVP }: HeroSectionProps) {
         >
           <p className="text-[12px] tracking-[1.2px] uppercase text-white/40 font-sans">Scroll</p>
           <div className="w-px h-12 bg-gradient-to-b from-white/40 to-transparent" />
+=======
+        transition={{ duration: 1, delay: 2.8 }}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10"
+      >
+        <motion.div
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="flex flex-col items-center gap-1.5"
+        >
+          <p className="text-[11px] tracking-[1.5px] uppercase text-white/40 font-sans">Scroll</p>
+          <div className="w-px h-10 bg-gradient-to-b from-white/40 to-transparent" />
+>>>>>>> dc0a6a7 (Initial commit)
         </motion.div>
       </motion.div>
     </section>

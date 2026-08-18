@@ -13,19 +13,34 @@ export function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+<<<<<<< HEAD
             style={{ fontFamily: "var(--couple-font, 'Great Vibes', cursive)" }}
             className="text-5xl md:text-6xl tracking-wide text-[#C4A57B] font-normal"
           >
             Gana <motion.span
+=======
+            style={{ fontFamily: "var(--couple-font, 'Barrington', 'Great Vibes', cursive)" }}
+            className="text-2xl md:text-3xl tracking-wide text-[#C4A57B] font-normal py-1"
+          >
+            Vinu <motion.span
+>>>>>>> dc0a6a7 (Initial commit)
               initial={{ scale: 0 }}
               whileInView={{ scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+<<<<<<< HEAD
               className="inline-block text-white/70"
             >&</motion.span> Vinu
           </motion.h3>
           
           {/* Date */}
+=======
+              className="inline-block text-white/70 mx-1 text-lg md:text-xl"
+            >&</motion.span> Gana
+          </motion.h3>
+          
+          {/* Date - Only Reception Date */}
+>>>>>>> dc0a6a7 (Initial commit)
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -33,7 +48,11 @@ export function Footer() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-sm tracking-[0.3em] uppercase text-white/60 font-sans"
           >
+<<<<<<< HEAD
             24 & 25 October 2026
+=======
+            24 October 2026
+>>>>>>> dc0a6a7 (Initial commit)
           </motion.p>
 
           {/* Divider */}
@@ -107,7 +126,11 @@ export function Footer() {
           className="mt-12 pt-8 border-t border-white/10 text-center"
         >
           <p className="text-xs tracking-wider uppercase text-white/40 font-sans">
+<<<<<<< HEAD
             © 2026 Gana & Vinu. All rights reserved.
+=======
+            © 2026 Vinu & Gana. All rights reserved.
+>>>>>>> dc0a6a7 (Initial commit)
           </p>
         </motion.div>
       </div>
