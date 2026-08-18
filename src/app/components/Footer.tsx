@@ -13,8 +13,8 @@ export function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            style={{ fontFamily: "var(--couple-font, 'Barrington', 'Great Vibes', cursive)", lineHeight: 1.4 }}
-            className="text-3xl sm:text-4xl md:text-5xl tracking-wide text-[#C4A57B] font-normal mb-5 md:mb-6 pb-2"
+            style={{ fontFamily: "var(--couple-font, 'Barrington', 'Great Vibes', cursive)", lineHeight: 1.6 }}
+            className="text-3xl sm:text-4xl md:text-5xl tracking-wide text-[#C4A57B] font-normal mb-8 sm:mb-10 md:mb-12 pb-2"
           >
             Gana <motion.span
               initial={{ scale: 0 }}
@@ -31,7 +31,7 @@ export function Footer() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xs sm:text-sm tracking-[0.3em] uppercase text-white/60 font-sans mt-2"
+            className="text-xs sm:text-sm tracking-[0.3em] uppercase text-white/60 font-sans mt-4 mb-6"
           >
             24 October 2026
           </motion.p>
