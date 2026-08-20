@@ -623,8 +623,24 @@ function Container56() {
 
 function Paragraph4() {
   return (
-    <div className="absolute h-[28px] left-0 top-[204px] w-[896px]" data-name="Paragraph">
-      <p className="-translate-x-1/2 [word-break:break-word] absolute font-['Cormorant_Garamond:Italic',sans-serif] font-normal italic leading-[28px] left-[447.97px] text-[18px] text-[rgba(255,255,255,0.8)] text-center top-0 whitespace-nowrap">Made with love</p>
+    <div className="absolute h-[28px] left-0 top-[204px] w-[896px] flex items-center justify-center gap-2" data-name="Paragraph">
+      <p className="font-['Cormorant_Garamond:Italic',sans-serif] font-normal italic leading-[28px] text-[18px] text-[rgba(255,255,255,0.8)] text-center whitespace-nowrap">
+        Crafted with love{' '}
+        <a
+          href="https://knotcraft.club/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            fontFamily: "'Sacramento', 'Great Vibes', 'Alex Brush', cursive",
+            color: "#FF4D4D",
+            fontSize: "22px",
+            fontStyle: "normal",
+            fontWeight: "normal"
+          }}
+        >
+          Knotcraft
+        </a>
+      </p>
     </div>
   );
 }

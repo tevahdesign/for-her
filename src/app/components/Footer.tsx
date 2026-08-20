@@ -66,16 +66,30 @@ export function Footer() {
             />
           </motion.div>
 
-          {/* Made with Love */}
-          <motion.p
+          {/* Crafted with Love - Knotcraft */}
+          <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="font-serif text-lg text-white/80 italic"
+            className="font-serif text-lg text-white/80 italic flex items-center justify-center gap-2 flex-wrap"
           >
-            Made with love
-          </motion.p>
+            <span>Crafted with love</span>
+            <a
+              href="https://knotcraft.club/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block transition-transform hover:scale-105 not-italic"
+              style={{
+                fontFamily: "'Sacramento', 'Great Vibes', 'Alex Brush', cursive",
+                color: "#FF4D4D",
+                fontSize: "1.6rem",
+                lineHeight: 1
+              }}
+            >
+              Knotcraft
+            </a>
+          </motion.div>
 
           {/* Social */}
           <motion.div
