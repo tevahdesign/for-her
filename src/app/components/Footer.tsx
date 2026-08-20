@@ -72,22 +72,20 @@ export function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="font-serif text-lg text-white/80 italic flex items-center justify-center gap-2 flex-wrap"
+            className="font-serif text-lg text-white/80 italic flex items-center justify-center gap-2.5 flex-wrap"
           >
             <span>Crafted with love</span>
             <a
               href="https://knotcraft.club/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block transition-transform hover:scale-105 not-italic"
-              style={{
-                fontFamily: "'Sacramento', 'Great Vibes', 'Alex Brush', cursive",
-                color: "#FF4D4D",
-                fontSize: "1.6rem",
-                lineHeight: 1
-              }}
+              className="inline-flex items-center transition-transform hover:scale-105"
             >
-              Knotcraft
+              <img
+                src="https://res.cloudinary.com/dviiva8wr/image/upload/v1766670709/Knotcraft_qfzab6.png"
+                alt="Knotcraft"
+                className="h-7 sm:h-8 w-auto object-contain"
+              />
             </a>
           </motion.div>
 
