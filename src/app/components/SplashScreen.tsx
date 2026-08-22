@@ -5,9 +5,26 @@ export function SplashScreen() {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
+    const playAudio = () => {
+      const bgAudio = document.getElementById('bg-audio') as HTMLAudioElement;
+      if (bgAudio) {
+        bgAudio.volume = 0.08; // light background music sound
+        bgAudio.play().catch(() => {});
+      }
+    };
+    playAudio();
+
     const timer = setTimeout(() => setVisible(false), 4000);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleSplashClick = () => {
+    const bgAudio = document.getElementById('bg-audio') as HTMLAudioElement;
+    if (bgAudio) {
+      bgAudio.volume = 0.08;
+      bgAudio.play().catch(() => {});
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -16,7 +33,8 @@ export function SplashScreen() {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 1.04 }}
           transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
-          className="fixed inset-0 z-[100] flex items-center justify-center"
+          onClick={handleSplashClick}
+          className="fixed inset-0 z-[100] flex items-center justify-center cursor-pointer"
           style={{ backgroundColor: '#C4A57B' }}
         >
           {/* Subtle radial glow in centre */}

@@ -7,7 +7,7 @@ export function BackgroundAudio() {
     const audio = audioRef.current;
     if (!audio) return;
 
-    audio.volume = 0.1;
+    audio.volume = 0.08;
 
     // Advanced autoplay strategy:
     // 1. Try unmuted playback on mount
