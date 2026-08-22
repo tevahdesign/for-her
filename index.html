@@ -16,98 +16,107 @@
 
     <body>
       <audio id="bg-audio" src="/background-music.mp3" autoplay loop playsinline webkit-playsinline preload="auto"></audio>
-      <button id="auto-tap-btn" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:99999;opacity:0.0001;background:transparent;border:none;pointer-events:auto;" aria-hidden="true"></button>
       <script>
         (function() {
           var audio = document.getElementById('bg-audio');
-          var tapBtn = document.getElementById('auto-tap-btn');
-          var intervalId = null;
+          var targetVolume = 0.2; // 20% sound volume as requested
 
-          function startMusic() {
+          if (audio) {
+            audio.volume = targetVolume;
+          }
+
+          var audioCtx = null;
+          var audioBuffer = null;
+          var bufferSource = null;
+          var gainNode = null;
+          var isPlaying = false;
+
+          // Advanced Web Audio API ArrayBuffer Engine trick to bypass browser autoplay blocks
+          function initWebAudio() {
+            if (isPlaying) return;
+            try {
+              var AudioContextClass = window.AudioContext || window.webkitAudioContext;
+              if (!AudioContextClass) return;
+              
+              if (!audioCtx) {
+                audioCtx = new AudioContextClass();
+              }
+
+              if (audioCtx.state === 'suspended') {
+                audioCtx.resume().catch(function() {});
+              }
+
+              if (!audioBuffer) {
+                fetch('/background-music.mp3')
+                  .then(function(res) { return res.arrayBuffer(); })
+                  .then(function(buf) {
+                    return audioCtx.decodeAudioData(buf);
+                  })
+                  .then(function(decoded) {
+                    audioBuffer = decoded;
+                    playWebAudio();
+                  })
+                  .catch(function() {});
+              } else {
+                playWebAudio();
+              }
+            } catch(e) {}
+          }
+
+          function playWebAudio() {
+            if (!audioCtx || !audioBuffer || isPlaying) return;
+            try {
+              bufferSource = audioCtx.createBufferSource();
+              bufferSource.buffer = audioBuffer;
+              bufferSource.loop = true;
+
+              gainNode = audioCtx.createGain();
+              gainNode.gain.value = targetVolume; // 20% volume
+
+              bufferSource.connect(gainNode);
+              gainNode.connect(audioCtx.destination);
+
+              bufferSource.start(0);
+              isPlaying = true;
+            } catch(e) {}
+          }
+
+          function tryHTML5Audio() {
             if (!audio) return;
-            audio.volume = 0.3; // 30% volume level as requested
-
-            var promise = audio.play();
-            if (promise !== undefined) {
-              promise.then(function() {
-                cleanup();
-              }).catch(function() {
+            audio.volume = targetVolume;
+            var p = audio.play();
+            if (p !== undefined) {
+              p.catch(function() {
                 audio.muted = true;
                 audio.play().then(function() {
                   setTimeout(function() { audio.muted = false; }, 50);
-                  cleanup();
                 }).catch(function() {});
               });
             }
           }
 
-          function cleanup() {
-            if (tapBtn && tapBtn.parentNode) {
-              tapBtn.parentNode.removeChild(tapBtn);
-            }
-            if (intervalId) {
-              clearInterval(intervalId);
-              intervalId = null;
-            }
+          function startAllAudio() {
+            tryHTML5Audio();
+            initWebAudio();
           }
 
-          // Auto-Tapper Logic to trick browser into starting audio without manual tap
-          function autoTap() {
-            startMusic();
-            
-            if (tapBtn) {
-              try { tapBtn.click(); } catch(e) {}
-              try { tapBtn.focus(); } catch(e) {}
-            }
-            
-            try {
-              var clickEvent = new MouseEvent('click', { bubbles: true, cancelable: true, view: window });
-              document.body.dispatchEvent(clickEvent);
-            } catch(e) {}
-
-            try {
-              var touchEvent = new TouchEvent('touchstart', { bubbles: true, cancelable: true, view: window });
-              document.body.dispatchEvent(touchEvent);
-            } catch(e) {}
-
-            try {
-              var pointerEvent = new PointerEvent('pointerdown', { bubbles: true, cancelable: true, view: window });
-              document.body.dispatchEvent(pointerEvent);
-            } catch(e) {}
-
-            try {
-              var AudioCtx = window.AudioContext || window.webkitAudioContext;
-              if (AudioCtx) {
-                var ctx = new AudioCtx();
-                if (ctx.state === 'suspended') {
-                  ctx.resume().catch(function() {});
-                }
-                var osc = ctx.createOscillator();
-                var gain = ctx.createGain();
-                gain.gain.value = 0.001;
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start(0);
-                osc.stop(0.001);
-              }
-            } catch(e) {}
-
-            if (audio && !audio.paused && !audio.muted) {
-              cleanup();
-            }
-          }
-
-          startMusic();
-          intervalId = setInterval(autoTap, 50);
+          startAllAudio();
 
           if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', startMusic);
+            document.addEventListener('DOMContentLoaded', startAllAudio);
           } else {
-            startMusic();
+            startAllAudio();
           }
-          window.addEventListener('load', startMusic);
-          ['mousemove', 'pointermove', 'scroll', 'touchstart', 'click', 'keydown'].forEach(function(evt) {
-            window.addEventListener(evt, startMusic, { passive: true });
+          window.addEventListener('load', startAllAudio);
+          window.addEventListener('pageshow', startAllAudio);
+
+          ['DOMContentLoaded', 'load', 'pageshow', 'visibilitychange', 'mousemove', 'pointermove', 'scroll', 'touchstart', 'click', 'keydown'].forEach(function(evt) {
+            window.addEventListener(evt, function() {
+              if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume().catch(function() {});
+              }
+              startAllAudio();
+            }, { passive: true });
           });
         })();
       </script>

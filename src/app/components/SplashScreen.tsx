@@ -8,7 +8,7 @@ export function SplashScreen() {
     const playAudio = () => {
       const bgAudio = document.getElementById('bg-audio') as HTMLAudioElement;
       if (bgAudio) {
-        bgAudio.volume = 0.3; // 30% sound volume
+        bgAudio.volume = 0.2; // 20% sound volume
         bgAudio.play().catch(() => {
           bgAudio.muted = true;
           bgAudio.play().then(() => {
