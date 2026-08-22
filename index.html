@@ -19,105 +19,20 @@
       <script>
         (function() {
           var audio = document.getElementById('bg-audio');
-          var targetVolume = 0.2; // 20% sound volume as requested
-
           if (audio) {
-            audio.volume = targetVolume;
-          }
-
-          var audioCtx = null;
-          var audioBuffer = null;
-          var bufferSource = null;
-          var gainNode = null;
-          var isPlaying = false;
-
-          // Advanced Web Audio API ArrayBuffer Engine trick to bypass browser autoplay blocks
-          function initWebAudio() {
-            if (isPlaying) return;
-            try {
-              var AudioContextClass = window.AudioContext || window.webkitAudioContext;
-              if (!AudioContextClass) return;
-              
-              if (!audioCtx) {
-                audioCtx = new AudioContextClass();
+            audio.volume = 0.2; // 20% volume level
+            var play = function() {
+              if (audio.paused) {
+                audio.play().catch(function() {});
               }
-
-              if (audioCtx.state === 'suspended') {
-                audioCtx.resume().catch(function() {});
-              }
-
-              if (!audioBuffer) {
-                fetch('/background-music.mp3')
-                  .then(function(res) { return res.arrayBuffer(); })
-                  .then(function(buf) {
-                    return audioCtx.decodeAudioData(buf);
-                  })
-                  .then(function(decoded) {
-                    audioBuffer = decoded;
-                    playWebAudio();
-                  })
-                  .catch(function() {});
-              } else {
-                playWebAudio();
-              }
-            } catch(e) {}
+            };
+            play();
+            // Play music on scroll automatically!
+            window.addEventListener('scroll', play, { passive: true });
+            ['DOMContentLoaded', 'load', 'touchstart', 'click', 'keydown'].forEach(function(evt) {
+              window.addEventListener(evt, play, { passive: true });
+            });
           }
-
-          function playWebAudio() {
-            if (!audioCtx || !audioBuffer || isPlaying) return;
-            try {
-              bufferSource = audioCtx.createBufferSource();
-              bufferSource.buffer = audioBuffer;
-              bufferSource.loop = true;
-
-              gainNode = audioCtx.createGain();
-              gainNode.gain.value = targetVolume; // 20% volume
-
-              bufferSource.connect(gainNode);
-              gainNode.connect(audioCtx.destination);
-
-              bufferSource.start(0);
-              isPlaying = true;
-            } catch(e) {}
-          }
-
-          function tryHTML5Audio() {
-            if (!audio) return;
-            audio.volume = targetVolume;
-            var p = audio.play();
-            if (p !== undefined) {
-              p.catch(function() {
-                audio.muted = true;
-                audio.play().then(function() {
-                  setTimeout(function() { audio.muted = false; }, 50);
-                }).catch(function() {});
-              });
-            }
-          }
-
-          function startAllAudio() {
-            tryHTML5Audio();
-            initWebAudio();
-          }
-
-          startAllAudio();
-
-          if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', startAllAudio);
-          } else {
-            startAllAudio();
-          }
-          window.addEventListener('load', startAllAudio);
-          window.addEventListener('pageshow', startAllAudio);
-
-          ['DOMContentLoaded', 'load', 'pageshow', 'visibilitychange', 'mousemove', 'pointermove', 'scroll', 'touchstart', 'click', 'keydown'].forEach(function(evt) {
-            window.addEventListener(evt, function() {
-              if (audioCtx && audioCtx.state === 'suspended') {
-                audioCtx.resume().catch(function() {});
-              }
-              startAllAudio();
-            }, { passive: true });
-          });
         })();
       </script>
       <div id="root"></div>
