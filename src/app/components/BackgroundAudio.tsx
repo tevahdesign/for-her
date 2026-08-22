@@ -12,7 +12,7 @@ export function BackgroundAudio() {
     const audio = (document.getElementById('bg-audio') as HTMLAudioElement) || audioRef.current;
     if (!audio) return;
 
-    audio.volume = 0.2;
+    audio.volume = 0.03; // 3% sound volume level
 
     const handlePlayState = () => setIsPlaying(!audio.paused);
 
@@ -24,6 +24,13 @@ export function BackgroundAudio() {
       audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
     }
 
+    const startAudioOnScroll = () => {
+      if (!userMutedRef.current && audio.paused) {
+        audio.volume = 0.03;
+        audio.play().then(() => setIsPlaying(true)).catch(() => {});
+      }
+    };
+
     const handleScroll = () => {
       // 1. Hide floating speaker button on Hero section (top 300px), show only after scrolling past Hero section
       if (window.scrollY > 300) {
@@ -32,24 +39,23 @@ export function BackgroundAudio() {
         setShowFloatingButton(false);
       }
 
-      // 2. Play music instantly on scroll ONLY IF user has NOT manually muted it
-      if (!userMutedRef.current && audio.paused) {
-        audio.volume = 0.2;
-        audio.play().then(() => setIsPlaying(true)).catch(() => {});
-      }
+      // 2. Start music instantly on scroll without requiring click
+      startAudioOnScroll();
     };
 
     // Initial scroll check
     handleScroll();
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('touchstart', handleScroll, { passive: true });
+    window.addEventListener('wheel', startAudioOnScroll, { passive: true });
+    window.addEventListener('touchmove', startAudioOnScroll, { passive: true });
 
     return () => {
       audio.removeEventListener('play', handlePlayState);
       audio.removeEventListener('pause', handlePlayState);
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('touchstart', handleScroll);
+      window.removeEventListener('wheel', startAudioOnScroll);
+      window.removeEventListener('touchmove', startAudioOnScroll);
     };
   }, []);
 
@@ -61,7 +67,7 @@ export function BackgroundAudio() {
     if (audio.paused) {
       // User clicked to UNMUTE/PLAY -> clear manual mute flag and start music
       userMutedRef.current = false;
-      audio.volume = 0.2;
+      audio.volume = 0.03;
       audio.play().then(() => setIsPlaying(true)).catch(() => {});
     } else {
       // User clicked to MUTE/PAUSE -> set manual mute flag and pause music

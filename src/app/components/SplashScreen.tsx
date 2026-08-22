@@ -8,7 +8,7 @@ export function SplashScreen() {
     const playAudio = () => {
       const bgAudio = document.getElementById('bg-audio') as HTMLAudioElement;
       if (bgAudio) {
-        bgAudio.volume = 0.2;
+        bgAudio.volume = 0.03;
         bgAudio.play().catch(() => {});
       }
     };
@@ -21,7 +21,7 @@ export function SplashScreen() {
   const handleSplashClick = () => {
     const bgAudio = document.getElementById('bg-audio') as HTMLAudioElement;
     if (bgAudio) {
-      bgAudio.volume = 0.2;
+      bgAudio.volume = 0.03;
       bgAudio.play().catch(() => {});
     }
   };
