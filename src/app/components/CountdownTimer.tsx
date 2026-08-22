@@ -222,7 +222,7 @@ export function CountdownTimer() {
           className="text-center mt-12"
         >
           <p className="font-serif text-2xl md:text-3xl text-black mb-2">
-            October 24, 2026
+            24 October 2026
           </p>
           <div className="flex items-center justify-center gap-2 text-black/60 font-sans text-sm tracking-wider">
             <Calendar className="w-4 h-4" />

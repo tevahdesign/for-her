@@ -24,8 +24,8 @@ export function RSVPSection() {
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
   const eventOptions = [
-    { id: 'reception', label: 'Reception', date: 'Sat, 24 Oct 2026' },
-    { id: 'wedding', label: 'Wedding', date: 'Sun, 25 Oct 2026' }
+    { id: 'reception', label: 'Reception', date: '24 October 2026' },
+    { id: 'wedding', label: 'Wedding', date: '25 October 2026' }
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -127,7 +127,7 @@ export function RSVPSection() {
               />
             </div>
             <p className="text-black/70 font-sans leading-relaxed">
-              Kindly respond by 1st October 2026
+              Kindly respond by 1 October 2026
             </p>
           </div>
         </ScrollReveal>

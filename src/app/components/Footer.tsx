@@ -82,9 +82,9 @@ export function Footer() {
               className="inline-flex items-center transition-transform hover:scale-105"
             >
               <img
-                src="https://res.cloudinary.com/dviiva8wr/image/upload/v1766670709/Knotcraft_qfzab6.png"
+                src="/knotcraft-logo.png"
                 alt="Knotcraft"
-                className="h-7 sm:h-8 w-auto object-contain"
+                className="h-7 sm:h-8 w-auto shrink-0 inline-block max-h-8 object-contain"
               />
             </a>
           </motion.div>

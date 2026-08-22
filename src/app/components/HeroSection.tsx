@@ -1,4 +1,6 @@
-import { motion } from 'motion/react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { ChevronDown, Calendar, MapPin } from 'lucide-react';
 import svgPaths from '@/imports/Vinuandgana-1/svg-imspn8ybu4';
 import imgHeroBg from '@/imports/Vinuandgana-1/23ab140f635321a670d7ab33f26a62fa9966e437.png';
 
@@ -7,6 +9,8 @@ interface HeroSectionProps {
 }
 
 export function HeroSection({ onViewEvents }: HeroSectionProps) {
+  const [showWeddingDetails, setShowWeddingDetails] = useState(false);
+
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
 
@@ -141,7 +145,7 @@ export function HeroSection({ onViewEvents }: HeroSectionProps) {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.9 }}
-          className="flex items-center justify-center gap-1.5 sm:gap-2 my-4 sm:my-5 md:my-6 w-full max-w-full px-3"
+          className="flex items-center justify-center gap-1.5 sm:gap-2 my-3 sm:my-4 w-full max-w-full px-3"
         >
           <p
             className="font-serif italic text-[12.5px] min-[360px]:text-[14px] min-[400px]:text-[15.5px] sm:text-[19px] md:text-[23px] text-[#C4A57B] font-normal tracking-wide whitespace-nowrap text-center"
@@ -153,14 +157,24 @@ export function HeroSection({ onViewEvents }: HeroSectionProps) {
           </svg>
         </motion.div>
 
+        {/* Reception Label */}
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 2.0 }}
+          className="text-[#C4A57B] text-[13px] sm:text-[15px] md:text-[17px] tracking-[4px] uppercase font-sans font-semibold mt-2 mb-1"
+        >
+          RECEPTION
+        </motion.p>
+
         {/* Date — Cormorant Garamond Serif matching image */}
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 2.1 }}
-          className="font-serif text-[24px] sm:text-[30px] md:text-[36px] tracking-wide text-white font-normal mt-1 mb-3"
+          className="font-serif text-[32px] sm:text-[44px] md:text-[54px] lg:text-[60px] tracking-wide text-white font-medium my-2"
         >
-          Saturday, Oct 24th
+          24 October 2026
         </motion.p>
 
         {/* Venue — Cormorant Garamond Serif lines matching image */}
@@ -174,12 +188,12 @@ export function HeroSection({ onViewEvents }: HeroSectionProps) {
           <p>Mele Chelari, Near Calicut University</p>
         </motion.div>
 
-        {/* VIEW EVENTS button — Solid black button with tracked text matching image */}
+        {/* VIEW EVENTS button */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 2.5 }}
-          className="mt-10"
+          className="mt-8"
         >
           <motion.button
             whileHover={{ scale: 1.04 }}
@@ -189,6 +203,85 @@ export function HeroSection({ onViewEvents }: HeroSectionProps) {
           >
             VIEW EVENTS
           </motion.button>
+        </motion.div>
+
+        {/* Dropdown for Wedding Details */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 2.6 }}
+          className="mt-6 w-full max-w-md"
+        >
+          <button
+            onClick={() => setShowWeddingDetails(!showWeddingDetails)}
+            className="w-full flex items-center justify-between px-6 py-3.5 bg-black/60 backdrop-blur-md border border-[#C4A57B]/50 hover:border-[#C4A57B] text-white transition-all duration-300 rounded-sm cursor-pointer group"
+          >
+            <span className="text-[13px] sm:text-[14px] tracking-[2.5px] uppercase font-sans font-medium text-[#C4A57B] group-hover:text-white transition-colors">
+              {showWeddingDetails ? 'Hide Wedding Details' : 'Show Wedding Details'}
+            </span>
+            <ChevronDown className={`w-5 h-5 text-[#C4A57B] transition-transform duration-300 ${showWeddingDetails ? 'rotate-180' : ''}`} />
+          </button>
+
+          <AnimatePresence>
+            {showWeddingDetails && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.35, ease: 'easeInOut' }}
+                className="overflow-hidden bg-black/90 backdrop-blur-md border-x border-b border-[#C4A57B]/40 text-left p-6 space-y-4 rounded-b-sm shadow-2xl mt-1"
+              >
+                <div className="border-b border-[#C4A57B]/30 pb-3 flex justify-between items-center">
+                  <h4 className="font-serif text-2xl text-[#C4A57B] font-normal">Wedding Ceremony</h4>
+                  <span className="text-xs tracking-widest text-white/70 bg-[#C4A57B]/20 px-3 py-1 rounded-full uppercase font-sans">
+                    25 October 2026
+                  </span>
+                </div>
+
+                <div className="space-y-3 font-sans text-sm text-white/90">
+                  <div className="flex items-start gap-3">
+                    <span className="text-[#C4A57B] font-medium min-w-[95px] shrink-0 uppercase text-xs tracking-wider">Date:</span>
+                    <span>25 October 2026 (Sunday)</span>
+                  </div>
+                  
+                  <div className="flex items-start gap-3">
+                    <span className="text-[#C4A57B] font-medium min-w-[95px] shrink-0 uppercase text-xs tracking-wider">Muhurtam:</span>
+                    <span className="text-[#F4E3D0] font-semibold">10:15 AM – 11:20 AM</span>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <span className="text-[#C4A57B] font-medium min-w-[95px] shrink-0 uppercase text-xs tracking-wider">Venue:</span>
+                    <span>Reef Club Resort, Eranhikkal, Calicut</span>
+                  </div>
+                </div>
+
+                <div className="pt-2 flex flex-wrap gap-3">
+                  <button
+                    onClick={() => {
+                      const googleCalendarUrl = new URL('https://calendar.google.com/calendar/render');
+                      googleCalendarUrl.searchParams.append('action', 'TEMPLATE');
+                      googleCalendarUrl.searchParams.append('text', "Wedding Ceremony - Gana & Vinu's Wedding");
+                      googleCalendarUrl.searchParams.append('dates', '20261025T101500/20261025T112000');
+                      googleCalendarUrl.searchParams.append('details', "Join us for the Wedding Ceremony (Muhurtam 10:15 AM - 11:20 AM) at Gana & Vinu's wedding celebration.");
+                      googleCalendarUrl.searchParams.append('location', 'Reef Club Resort, Eranhikkal, Calicut');
+                      window.open(googleCalendarUrl.toString(), '_blank');
+                    }}
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-black border border-white/30 hover:border-[#C4A57B] text-white text-xs tracking-wider uppercase font-sans transition-colors cursor-pointer"
+                  >
+                    <Calendar className="w-3.5 h-3.5 text-[#C4A57B]" />
+                    Add to Calendar
+                  </button>
+                  <button
+                    onClick={() => window.open('https://www.google.com/maps/search/?api=1&query=Reef+Club+Resort+Eranhikkal+Calicut', '_blank')}
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-[#C4A57B] hover:bg-[#b09167] text-black font-medium text-xs tracking-wider uppercase font-sans transition-colors cursor-pointer"
+                  >
+                    <MapPin className="w-3.5 h-3.5" />
+                    Get Directions
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
 
       </div>
@@ -212,3 +305,4 @@ export function HeroSection({ onViewEvents }: HeroSectionProps) {
     </section>
   );
 }
+
