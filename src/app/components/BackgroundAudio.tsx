@@ -2,11 +2,17 @@ import { useEffect, useState, useRef } from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
+const MANUALLY_MUTED_KEY = 'vinu_gana_audio_manually_muted';
+
 export function BackgroundAudio() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showFloatingButton, setShowFloatingButton] = useState(false);
-  const userMutedRef = useRef(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Persistent ref tracking manual user mute intent across scroll events and re-renders
+  const isManuallyMutedRef = useRef<boolean>(
+    sessionStorage.getItem(MANUALLY_MUTED_KEY) === 'true'
+  );
 
   useEffect(() => {
     const audio = (document.getElementById('bg-audio') as HTMLAudioElement) || audioRef.current;
@@ -19,43 +25,40 @@ export function BackgroundAudio() {
     audio.addEventListener('play', handlePlayState);
     audio.addEventListener('pause', handlePlayState);
 
-    // Initial play attempt if user hasn't manually muted
-    if (!userMutedRef.current) {
+    // Initial play attempt on mount IF NOT manually muted by user
+    if (!isManuallyMutedRef.current) {
       audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
     }
 
-    const startAudioOnScroll = () => {
-      if (!userMutedRef.current && audio.paused) {
-        audio.volume = 0.03;
-        audio.play().then(() => setIsPlaying(true)).catch(() => {});
-      }
-    };
-
+    // Advanced Scroll Audio Controller
     const handleScroll = () => {
-      // 1. Hide floating speaker button on Hero section (top 300px), show only after scrolling past Hero section
+      // 1. Show floating speaker button only after scrolling past Hero section (300px)
       if (window.scrollY > 300) {
         setShowFloatingButton(true);
       } else {
         setShowFloatingButton(false);
       }
 
-      // 2. Start music instantly on scroll without requiring click
-      startAudioOnScroll();
+      // 2. Start music INSTANTLY on first-time scroll, UNLESS manually muted by user
+      if (audio.paused && !isManuallyMutedRef.current) {
+        audio.volume = 0.03;
+        audio.play().then(() => setIsPlaying(true)).catch(() => {});
+      }
     };
 
-    // Initial scroll check
+    // Run initial scroll check
     handleScroll();
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('wheel', startAudioOnScroll, { passive: true });
-    window.addEventListener('touchmove', startAudioOnScroll, { passive: true });
+    window.addEventListener('wheel', handleScroll, { passive: true });
+    window.addEventListener('touchmove', handleScroll, { passive: true });
 
     return () => {
       audio.removeEventListener('play', handlePlayState);
       audio.removeEventListener('pause', handlePlayState);
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('wheel', startAudioOnScroll);
-      window.removeEventListener('touchmove', startAudioOnScroll);
+      window.removeEventListener('wheel', handleScroll);
+      window.removeEventListener('touchmove', handleScroll);
     };
   }, []);
 
@@ -65,13 +68,15 @@ export function BackgroundAudio() {
     if (!audio) return;
 
     if (audio.paused) {
-      // User clicked to UNMUTE/PLAY -> clear manual mute flag and start music
-      userMutedRef.current = false;
+      // USER CLICKED TO UNMUTE / PLAY AGAIN -> Clear manual mute state
+      isManuallyMutedRef.current = false;
+      sessionStorage.setItem(MANUALLY_MUTED_KEY, 'false');
       audio.volume = 0.03;
       audio.play().then(() => setIsPlaying(true)).catch(() => {});
     } else {
-      // User clicked to MUTE/PAUSE -> set manual mute flag and pause music
-      userMutedRef.current = true;
+      // USER CLICKED TO MUTE -> Lock manual mute state so scrolling cannot trigger music!
+      isManuallyMutedRef.current = true;
+      sessionStorage.setItem(MANUALLY_MUTED_KEY, 'true');
       audio.pause();
       setIsPlaying(false);
     }
@@ -90,7 +95,7 @@ export function BackgroundAudio() {
         preload="auto"
       />
 
-      {/* Floating Speaker Button: Hidden on Hero section, shows only after scrolling past Hero */}
+      {/* Floating Speaker Button: Hidden on Hero section, shows after scrolling past Hero */}
       <AnimatePresence>
         {showFloatingButton && (
           <motion.button
