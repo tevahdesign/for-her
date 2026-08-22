@@ -25,7 +25,7 @@ const galleryImages: GalleryImage[] = [
   { id: 2, src: imgCelebrations, caption: 'Forever',      gridClass: 'col-span-2 row-span-1', objectPosition: 'center 52%' },
   { id: 3, src: imgMoments,      caption: 'Moments',      gridClass: 'col-span-1 row-span-1', objectPosition: 'center top' },
   { id: 4, src: imgForever,      caption: 'Celebrations', gridClass: 'col-span-1 row-span-2', objectPosition: 'center top' },
-  { id: 5, src: imgJoy,          caption: 'Joy',          gridClass: 'col-span-2 row-span-1', objectPosition: 'center center' },
+  { id: 5, src: imgJoy,          caption: 'Joy',          gridClass: 'col-span-2 row-span-1', objectPosition: 'center 25%' },
 ];
 
 export function GallerySection() {

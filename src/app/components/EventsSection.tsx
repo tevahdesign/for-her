@@ -122,24 +122,29 @@ export function EventsSection() {
           </div>
         </ScrollReveal>
 
-        {/* Events Cards with Original/Old Card Styling */}
+        {/* Events Cards */}
         <div className="space-y-6">
-          {/* RECEPTION CARD - ORIGINAL DESIGN */}
+          {/* RECEPTION CARD */}
           <ScrollReveal delay={0.1}>
             <motion.div
               whileHover={{ scale: 1.01, transition: { duration: 0.2 } }}
               className="border border-black/10 bg-white/50 backdrop-blur-sm transition-all duration-300 hover:border-[#C4A57B]/50 hover:shadow-lg p-8"
             >
               <div>
-                <h3 className="font-serif text-3xl text-black mb-2">
+                <h3 className="font-serif text-3xl text-black">
                   Reception
                 </h3>
-                <p className="text-sm tracking-wider text-[#C4A57B] font-semibold font-sans">
-                  24 October 2026 · 5:00 PM – 8:00 PM
-                </p>
               </div>
 
               <div className="pt-6 mt-6 border-t border-black/5 space-y-6">
+                <div className="flex items-start gap-4">
+                  <Calendar className="w-5 h-5 text-[#C4A57B] mt-1 flex-shrink-0" />
+                  <div>
+                    <p className="text-xs tracking-widest uppercase text-black/50 font-sans mb-1">Date & Time</p>
+                    <p className="font-serif text-lg text-black font-medium">24 October 2026 · 5:00 PM – 8:00 PM</p>
+                  </div>
+                </div>
+
                 <div className="flex items-start gap-4">
                   <MapPin className="w-5 h-5 text-[#C4A57B] mt-1 flex-shrink-0" />
                   <div>
@@ -172,7 +177,7 @@ export function EventsSection() {
             </motion.div>
           </ScrollReveal>
 
-          {/* WEDDING CARD - ORIGINAL DESIGN WITH CLICKABLE DROPDOWN */}
+          {/* WEDDING CARD WITH CLICKABLE DROPDOWN */}
           <ScrollReveal delay={0.2}>
             <motion.div
               whileHover={{ scale: 1.01, transition: { duration: 0.2 } }}
@@ -181,12 +186,9 @@ export function EventsSection() {
             >
               <div className="flex justify-between items-center">
                 <div>
-                  <h3 className="font-serif text-3xl text-black mb-2">
+                  <h3 className="font-serif text-3xl text-black">
                     Wedding
                   </h3>
-                  <p className="text-sm tracking-wider text-[#C4A57B] font-semibold font-sans">
-                    25 October 2026 · Muhurtam: 10:15 AM – 11:20 AM
-                  </p>
                 </div>
                 <div className="w-9 h-9 rounded-full border border-[#C4A57B]/40 flex items-center justify-center bg-white/80 shrink-0 ml-4">
                   <ChevronDown className={`w-5 h-5 text-[#C4A57B] transition-transform duration-300 ${isWeddingOpen ? 'rotate-180' : ''}`} />
@@ -205,14 +207,11 @@ export function EventsSection() {
                     onClick={(e) => e.stopPropagation()} // Prevent card toggle when clicking inside buttons
                   >
                     <div className="pt-6 mt-6 border-t border-black/5 space-y-6">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-4 border-b border-black/5">
+                      <div className="flex items-start gap-4">
+                        <Calendar className="w-5 h-5 text-[#C4A57B] mt-1 flex-shrink-0" />
                         <div>
-                          <p className="text-xs tracking-widest uppercase text-black/50 font-sans mb-1">Date</p>
-                          <p className="font-serif text-lg text-black font-semibold">25 October 2026 (Sunday)</p>
-                        </div>
-                        <div>
-                          <p className="text-xs tracking-widest uppercase text-black/50 font-sans mb-1">Muhurtam Time</p>
-                          <p className="font-serif text-lg text-[#C4A57B] font-bold">10:15 AM – 11:20 AM</p>
+                          <p className="text-xs tracking-widest uppercase text-black/50 font-sans mb-1">Date & Time</p>
+                          <p className="font-serif text-lg text-black font-medium">25 October 2026 (Sunday) · Muhurtam: 10:15 AM – 11:20 AM</p>
                         </div>
                       </div>
 
