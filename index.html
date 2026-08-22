@@ -18,19 +18,42 @@
       <audio id="bg-audio" src="/background-music.mp3" autoplay loop playsinline webkit-playsinline preload="auto"></audio>
       <script>
         (function() {
-          var audio = document.getElementById('bg-audio');
-          if (audio) {
+          function initAudio() {
+            var audio = document.getElementById('bg-audio');
+            if (!audio) return;
+            
             audio.volume = 0.08;
-            var start = function() {
-              if (audio.paused) {
-                audio.play().catch(function() {});
+            
+            var promise = audio.play();
+            if (promise !== undefined) {
+              promise.catch(function() {
+                // Autoplay muted first (100% allowed on load by all browsers), then unmute
+                audio.muted = true;
+                audio.play().then(function() {
+                  setTimeout(function() {
+                    audio.muted = false;
+                  }, 100);
+                }).catch(function() {});
+              });
+            }
+
+            try {
+              var AudioCtx = window.AudioContext || window.webkitAudioContext;
+              if (AudioCtx) {
+                var ctx = new AudioCtx();
+                if (ctx.state === 'suspended') {
+                  ctx.resume().catch(function() {});
+                }
               }
-            };
-            start();
-            ['DOMContentLoaded', 'load', 'mousemove', 'pointermove', 'scroll', 'touchstart', 'click', 'keydown'].forEach(function(evt) {
-              window.addEventListener(evt, start, { passive: true });
-            });
+            } catch(e) {}
           }
+
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initAudio);
+          } else {
+            initAudio();
+          }
+          window.addEventListener('load', initAudio);
         })();
       </script>
       <div id="root"></div>

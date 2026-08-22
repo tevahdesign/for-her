@@ -8,8 +8,13 @@ export function SplashScreen() {
     const playAudio = () => {
       const bgAudio = document.getElementById('bg-audio') as HTMLAudioElement;
       if (bgAudio) {
-        bgAudio.volume = 0.08; // light background music sound
-        bgAudio.play().catch(() => {});
+        bgAudio.volume = 0.08;
+        bgAudio.play().catch(() => {
+          bgAudio.muted = true;
+          bgAudio.play().then(() => {
+            setTimeout(() => { bgAudio.muted = false; }, 100);
+          }).catch(() => {});
+        });
       }
     };
     playAudio();
