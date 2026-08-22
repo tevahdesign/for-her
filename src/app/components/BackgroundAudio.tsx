@@ -1,42 +1,64 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 export function BackgroundAudio() {
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
   useEffect(() => {
     const audio = new Audio('/background-music.mp3');
     audio.loop = true;
-    audio.volume = 0.25;
+    audio.volume = 0.25; // minimal background volume
+    audio.setAttribute('playsinline', 'true');
+    audio.setAttribute('webkit-playsinline', 'true');
+    audioRef.current = audio;
 
-    const playAudio = () => {
-      audio.play().catch(() => {});
+    // Advanced Autoplay Strategy:
+    // Try unmuted play first. If blocked by browser autoplay policy,
+    // play muted immediately (browsers always permit muted autoplay),
+    // then unmute on the very first user interaction (touch/click/scroll).
+    const startAudio = () => {
+      audio.play().then(() => {
+        // Direct unmuted autoplay succeeded
+      }).catch(() => {
+        audio.muted = true;
+        audio.play().then(() => {
+          // Muted autoplay succeeded, waiting for user gesture to unmute
+        }).catch(err => {
+          console.warn('Initial autoplay attempt deferred until user interaction:', err);
+        });
+      });
     };
 
-    // Try playing immediately on load
-    playAudio();
+    startAudio();
 
-    // Fallback: start on first user interaction if browser policy blocked silent autoplay
-    const handleInteraction = () => {
-      if (audio.paused) {
-        audio.play().catch(() => {});
+    // Multi-gesture unlock handler
+    const unlockAudio = () => {
+      if (audioRef.current) {
+        audioRef.current.muted = false;
+        if (audioRef.current.paused) {
+          audioRef.current.play().catch(() => {});
+        }
       }
-      window.removeEventListener('click', handleInteraction);
-      window.removeEventListener('touchstart', handleInteraction);
-      window.removeEventListener('scroll', handleInteraction);
-      window.removeEventListener('keydown', handleInteraction);
+      // Clean up gesture listeners once audio is active and unmuted
+      events.forEach((evt) => {
+        window.removeEventListener(evt, unlockAudio);
+      });
     };
 
-    window.addEventListener('click', handleInteraction);
-    window.addEventListener('touchstart', handleInteraction);
-    window.addEventListener('scroll', handleInteraction);
-    window.addEventListener('keydown', handleInteraction);
+    const events = ['pointerdown', 'touchstart', 'touchend', 'click', 'scroll', 'wheel', 'keydown'];
+    events.forEach((evt) => {
+      window.addEventListener(evt, unlockAudio, { passive: true });
+    });
 
     return () => {
-      window.removeEventListener('click', handleInteraction);
-      window.removeEventListener('touchstart', handleInteraction);
-      window.removeEventListener('scroll', handleInteraction);
-      window.removeEventListener('keydown', handleInteraction);
-      audio.pause();
+      events.forEach((evt) => {
+        window.removeEventListener(evt, unlockAudio);
+      });
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
     };
   }, []);
 
-  return null; // Invisible background player - no icon UI
+  return null;
 }

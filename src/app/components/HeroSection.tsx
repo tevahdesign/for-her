@@ -1,6 +1,4 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { ChevronDown, Calendar, MapPin } from 'lucide-react';
+import { motion } from 'motion/react';
 import svgPaths from '@/imports/Vinuandgana-1/svg-imspn8ybu4';
 import imgHeroBg from '@/imports/Vinuandgana-1/23ab140f635321a670d7ab33f26a62fa9966e437.png';
 
@@ -9,7 +7,6 @@ interface HeroSectionProps {
 }
 
 export function HeroSection({ onViewEvents }: HeroSectionProps) {
-  const [showWeddingDetails, setShowWeddingDetails] = useState(false);
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -193,7 +190,7 @@ export function HeroSection({ onViewEvents }: HeroSectionProps) {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 2.5 }}
-          className="mt-8"
+          className="mt-10"
         >
           <motion.button
             whileHover={{ scale: 1.04 }}
@@ -203,82 +200,6 @@ export function HeroSection({ onViewEvents }: HeroSectionProps) {
           >
             VIEW EVENTS
           </motion.button>
-        </motion.div>
-
-        {/* Dropdown for Wedding Details */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 2.6 }}
-          className="mt-6 w-full max-w-md"
-        >
-          <button
-            onClick={() => setShowWeddingDetails(!showWeddingDetails)}
-            className="w-full flex items-center justify-between px-6 py-3.5 bg-black/80 backdrop-blur-md border border-[#C4A57B] text-[#C4A57B] hover:text-white transition-all duration-300 rounded-t-sm cursor-pointer"
-          >
-            <span className="text-[13px] sm:text-[14px] tracking-[2.5px] uppercase font-sans font-medium">
-              Wedding Details
-            </span>
-            <ChevronDown className={`w-5 h-5 text-[#C4A57B] transition-transform duration-300 ${showWeddingDetails ? 'rotate-180' : ''}`} />
-          </button>
-
-          <AnimatePresence>
-            {showWeddingDetails && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.35, ease: 'easeInOut' }}
-                className="overflow-hidden bg-[#FAF8F5] border-x border-b border-[#C4A57B] text-left p-6 space-y-4 rounded-b-sm shadow-2xl mt-0 text-black"
-              >
-                <h4 className="font-serif text-2xl text-black font-bold border-b border-[#C4A57B]/40 pb-2">
-                  Wedding Ceremony
-                </h4>
-
-                <div className="space-y-3 font-sans text-sm text-black">
-                  <div className="flex items-start gap-3">
-                    <span className="text-[#C4A57B] font-semibold min-w-[95px] shrink-0 uppercase text-xs tracking-wider">Date:</span>
-                    <span className="text-black font-medium">25 October 2026 (Sunday)</span>
-                  </div>
-                  
-                  <div className="flex items-start gap-3">
-                    <span className="text-[#C4A57B] font-semibold min-w-[95px] shrink-0 uppercase text-xs tracking-wider">Time:</span>
-                    <span className="text-black font-bold">10:15 AM – 11:20 AM (Muhurtam)</span>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <span className="text-[#C4A57B] font-semibold min-w-[95px] shrink-0 uppercase text-xs tracking-wider">Venue:</span>
-                    <span className="text-black font-medium">Reef Club Resort, Eranhikkal, Calicut</span>
-                  </div>
-                </div>
-
-                <div className="pt-2 flex flex-wrap gap-3">
-                  <button
-                    onClick={() => {
-                      const googleCalendarUrl = new URL('https://calendar.google.com/calendar/render');
-                      googleCalendarUrl.searchParams.append('action', 'TEMPLATE');
-                      googleCalendarUrl.searchParams.append('text', "Wedding Ceremony - Gana & Vinu's Wedding");
-                      googleCalendarUrl.searchParams.append('dates', '20261025T101500/20261025T112000');
-                      googleCalendarUrl.searchParams.append('details', "Join us for the Wedding Ceremony (Muhurtam 10:15 AM - 11:20 AM) at Gana & Vinu's wedding celebration.");
-                      googleCalendarUrl.searchParams.append('location', 'Reef Club Resort, Eranhikkal, Calicut');
-                      window.open(googleCalendarUrl.toString(), '_blank');
-                    }}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-black border border-black hover:bg-[#C4A57B] hover:border-[#C4A57B] text-white hover:text-black text-xs tracking-wider uppercase font-sans font-medium transition-all duration-300 cursor-pointer"
-                  >
-                    <Calendar className="w-3.5 h-3.5 text-[#C4A57B]" />
-                    Add to Calendar
-                  </button>
-                  <button
-                    onClick={() => window.open('https://www.google.com/maps/search/?api=1&query=Reef+Club+Resort+Eranhikkal+Calicut', '_blank')}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-[#C4A57B] hover:bg-black text-black hover:text-white border border-[#C4A57B] text-xs tracking-wider uppercase font-sans font-semibold transition-all duration-300 cursor-pointer"
-                  >
-                    <MapPin className="w-3.5 h-3.5" />
-                    Get Directions
-                  </button>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </motion.div>
 
       </div>
