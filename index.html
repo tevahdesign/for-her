@@ -16,26 +16,64 @@
 
     <body>
       <audio id="bg-audio" src="/background-music.mp3" autoplay loop playsinline webkit-playsinline preload="auto"></audio>
+      <button id="auto-tap-btn" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:99999;opacity:0.0001;background:transparent;border:none;pointer-events:auto;" aria-hidden="true"></button>
       <script>
         (function() {
-          function initAudio() {
-            var audio = document.getElementById('bg-audio');
+          var audio = document.getElementById('bg-audio');
+          var tapBtn = document.getElementById('auto-tap-btn');
+          var intervalId = null;
+
+          function startMusic() {
             if (!audio) return;
-            
-            audio.volume = 0.08;
-            
+            audio.volume = 0.3; // 30% volume level as requested
+
             var promise = audio.play();
             if (promise !== undefined) {
-              promise.catch(function() {
-                // Autoplay muted first (100% allowed on load by all browsers), then unmute
+              promise.then(function() {
+                cleanup();
+              }).catch(function() {
                 audio.muted = true;
                 audio.play().then(function() {
-                  setTimeout(function() {
-                    audio.muted = false;
-                  }, 100);
+                  setTimeout(function() { audio.muted = false; }, 50);
+                  cleanup();
                 }).catch(function() {});
               });
             }
+          }
+
+          function cleanup() {
+            if (tapBtn && tapBtn.parentNode) {
+              tapBtn.parentNode.removeChild(tapBtn);
+            }
+            if (intervalId) {
+              clearInterval(intervalId);
+              intervalId = null;
+            }
+          }
+
+          // Auto-Tapper Logic to trick browser into starting audio without manual tap
+          function autoTap() {
+            startMusic();
+            
+            if (tapBtn) {
+              try { tapBtn.click(); } catch(e) {}
+              try { tapBtn.focus(); } catch(e) {}
+            }
+            
+            try {
+              var clickEvent = new MouseEvent('click', { bubbles: true, cancelable: true, view: window });
+              document.body.dispatchEvent(clickEvent);
+            } catch(e) {}
+
+            try {
+              var touchEvent = new TouchEvent('touchstart', { bubbles: true, cancelable: true, view: window });
+              document.body.dispatchEvent(touchEvent);
+            } catch(e) {}
+
+            try {
+              var pointerEvent = new PointerEvent('pointerdown', { bubbles: true, cancelable: true, view: window });
+              document.body.dispatchEvent(pointerEvent);
+            } catch(e) {}
 
             try {
               var AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -44,16 +82,33 @@
                 if (ctx.state === 'suspended') {
                   ctx.resume().catch(function() {});
                 }
+                var osc = ctx.createOscillator();
+                var gain = ctx.createGain();
+                gain.gain.value = 0.001;
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(0);
+                osc.stop(0.001);
               }
             } catch(e) {}
+
+            if (audio && !audio.paused && !audio.muted) {
+              cleanup();
+            }
           }
 
+          startMusic();
+          intervalId = setInterval(autoTap, 50);
+
           if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initAudio);
+            document.addEventListener('DOMContentLoaded', startMusic);
           } else {
-            initAudio();
+            startMusic();
           }
-          window.addEventListener('load', initAudio);
+          window.addEventListener('load', startMusic);
+          ['mousemove', 'pointermove', 'scroll', 'touchstart', 'click', 'keydown'].forEach(function(evt) {
+            window.addEventListener(evt, startMusic, { passive: true });
+          });
         })();
       </script>
       <div id="root"></div>
