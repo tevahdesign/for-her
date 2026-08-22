@@ -15,10 +15,26 @@
     </head>
 
     <body>
-      
+      <audio id="bg-audio" src="/background-music.mp3" autoplay loop playsinline webkit-playsinline preload="auto"></audio>
+      <script>
+        (function() {
+          var audio = document.getElementById('bg-audio');
+          if (audio) {
+            audio.volume = 0.1;
+            var play = function() {
+              audio.play().catch(function() {});
+            };
+            play();
+            ['pointerdown', 'touchstart', 'touchend', 'click', 'scroll', 'keydown'].forEach(function(evt) {
+              window.addEventListener(evt, function() {
+                if (audio.paused) play();
+              }, { passive: true });
+            });
+          }
+        })();
+      </script>
       <div id="root"></div>
       <script type="module" src="/src/main.tsx"></script>
-      
     </body>
   </html>
   
