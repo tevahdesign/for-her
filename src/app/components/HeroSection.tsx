@@ -214,10 +214,10 @@ export function HeroSection({ onViewEvents }: HeroSectionProps) {
         >
           <button
             onClick={() => setShowWeddingDetails(!showWeddingDetails)}
-            className="w-full flex items-center justify-between px-6 py-3.5 bg-black/60 backdrop-blur-md border border-[#C4A57B]/50 hover:border-[#C4A57B] text-white transition-all duration-300 rounded-sm cursor-pointer group"
+            className="w-full flex items-center justify-between px-6 py-3.5 bg-black/80 backdrop-blur-md border border-[#C4A57B] text-[#C4A57B] hover:text-white transition-all duration-300 rounded-t-sm cursor-pointer"
           >
-            <span className="text-[13px] sm:text-[14px] tracking-[2.5px] uppercase font-sans font-medium text-[#C4A57B] group-hover:text-white transition-colors">
-              {showWeddingDetails ? 'Hide Wedding Details' : 'Show Wedding Details'}
+            <span className="text-[13px] sm:text-[14px] tracking-[2.5px] uppercase font-sans font-medium">
+              Wedding Details
             </span>
             <ChevronDown className={`w-5 h-5 text-[#C4A57B] transition-transform duration-300 ${showWeddingDetails ? 'rotate-180' : ''}`} />
           </button>
@@ -229,29 +229,26 @@ export function HeroSection({ onViewEvents }: HeroSectionProps) {
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.35, ease: 'easeInOut' }}
-                className="overflow-hidden bg-black/90 backdrop-blur-md border-x border-b border-[#C4A57B]/40 text-left p-6 space-y-4 rounded-b-sm shadow-2xl mt-1"
+                className="overflow-hidden bg-[#FAF8F5] border-x border-b border-[#C4A57B] text-left p-6 space-y-4 rounded-b-sm shadow-2xl mt-0 text-black"
               >
-                <div className="border-b border-[#C4A57B]/30 pb-3 flex justify-between items-center">
-                  <h4 className="font-serif text-2xl text-[#C4A57B] font-normal">Wedding Ceremony</h4>
-                  <span className="text-xs tracking-widest text-white/70 bg-[#C4A57B]/20 px-3 py-1 rounded-full uppercase font-sans">
-                    25 October 2026
-                  </span>
-                </div>
+                <h4 className="font-serif text-2xl text-black font-bold border-b border-[#C4A57B]/40 pb-2">
+                  Wedding Ceremony
+                </h4>
 
-                <div className="space-y-3 font-sans text-sm text-white/90">
+                <div className="space-y-3 font-sans text-sm text-black">
                   <div className="flex items-start gap-3">
-                    <span className="text-[#C4A57B] font-medium min-w-[95px] shrink-0 uppercase text-xs tracking-wider">Date:</span>
-                    <span>25 October 2026 (Sunday)</span>
+                    <span className="text-[#C4A57B] font-semibold min-w-[95px] shrink-0 uppercase text-xs tracking-wider">Date:</span>
+                    <span className="text-black font-medium">25 October 2026 (Sunday)</span>
                   </div>
                   
                   <div className="flex items-start gap-3">
-                    <span className="text-[#C4A57B] font-medium min-w-[95px] shrink-0 uppercase text-xs tracking-wider">Muhurtam:</span>
-                    <span className="text-[#F4E3D0] font-semibold">10:15 AM – 11:20 AM</span>
+                    <span className="text-[#C4A57B] font-semibold min-w-[95px] shrink-0 uppercase text-xs tracking-wider">Time:</span>
+                    <span className="text-black font-bold">10:15 AM – 11:20 AM (Muhurtam)</span>
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <span className="text-[#C4A57B] font-medium min-w-[95px] shrink-0 uppercase text-xs tracking-wider">Venue:</span>
-                    <span>Reef Club Resort, Eranhikkal, Calicut</span>
+                    <span className="text-[#C4A57B] font-semibold min-w-[95px] shrink-0 uppercase text-xs tracking-wider">Venue:</span>
+                    <span className="text-black font-medium">Reef Club Resort, Eranhikkal, Calicut</span>
                   </div>
                 </div>
 
@@ -266,14 +263,14 @@ export function HeroSection({ onViewEvents }: HeroSectionProps) {
                       googleCalendarUrl.searchParams.append('location', 'Reef Club Resort, Eranhikkal, Calicut');
                       window.open(googleCalendarUrl.toString(), '_blank');
                     }}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-black border border-white/30 hover:border-[#C4A57B] text-white text-xs tracking-wider uppercase font-sans transition-colors cursor-pointer"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-black border border-black hover:bg-[#C4A57B] hover:border-[#C4A57B] text-white hover:text-black text-xs tracking-wider uppercase font-sans font-medium transition-all duration-300 cursor-pointer"
                   >
                     <Calendar className="w-3.5 h-3.5 text-[#C4A57B]" />
                     Add to Calendar
                   </button>
                   <button
                     onClick={() => window.open('https://www.google.com/maps/search/?api=1&query=Reef+Club+Resort+Eranhikkal+Calicut', '_blank')}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-[#C4A57B] hover:bg-[#b09167] text-black font-medium text-xs tracking-wider uppercase font-sans transition-colors cursor-pointer"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-[#C4A57B] hover:bg-black text-black hover:text-white border border-[#C4A57B] text-xs tracking-wider uppercase font-sans font-semibold transition-all duration-300 cursor-pointer"
                   >
                     <MapPin className="w-3.5 h-3.5" />
                     Get Directions
