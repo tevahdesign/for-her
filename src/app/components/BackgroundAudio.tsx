@@ -20,28 +20,28 @@ export function BackgroundAudio() {
 
     audio.volume = 0.08; // 8% sound volume level
 
-    const handlePlayState = () => setIsPlaying(!audio.paused);
+    // Strict play listener: If audio starts playing while manually muted, immediately pause it!
+    const handlePlayState = () => {
+      const isMuted = isManuallyMutedRef.current || sessionStorage.getItem(MANUALLY_MUTED_KEY) === 'true';
+      if (!audio.paused && isMuted) {
+        audio.pause();
+        setIsPlaying(false);
+      } else {
+        setIsPlaying(!audio.paused);
+      }
+    };
 
     audio.addEventListener('play', handlePlayState);
     audio.addEventListener('pause', handlePlayState);
 
     // Initial play attempt on mount IF NOT manually muted by user
-    if (!isManuallyMutedRef.current) {
+    const isMuted = isManuallyMutedRef.current || sessionStorage.getItem(MANUALLY_MUTED_KEY) === 'true';
+    if (!isMuted) {
       audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+    } else {
+      audio.pause();
+      setIsPlaying(false);
     }
-
-    // Global listener for first user interaction to unlock autoplay policy IF NOT manually muted
-    const handleFirstInteraction = () => {
-      const currentAudio = (document.getElementById('bg-audio') as HTMLAudioElement) || audioRef.current;
-      if (currentAudio && currentAudio.paused && !isManuallyMutedRef.current) {
-        currentAudio.play().then(() => setIsPlaying(true)).catch(() => {});
-      }
-      window.removeEventListener('click', handleFirstInteraction);
-      window.removeEventListener('touchstart', handleFirstInteraction);
-    };
-
-    window.addEventListener('click', handleFirstInteraction);
-    window.addEventListener('touchstart', handleFirstInteraction);
 
     // Scroll listener: Hide play/pause button on Hero section (scrollY <= 300), show after Hero
     const handleScroll = () => {
@@ -58,8 +58,6 @@ export function BackgroundAudio() {
     return () => {
       audio.removeEventListener('play', handlePlayState);
       audio.removeEventListener('pause', handlePlayState);
-      window.removeEventListener('click', handleFirstInteraction);
-      window.removeEventListener('touchstart', handleFirstInteraction);
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
@@ -69,18 +67,18 @@ export function BackgroundAudio() {
     const audio = (document.getElementById('bg-audio') as HTMLAudioElement) || audioRef.current;
     if (!audio) return;
 
-    if (audio.paused) {
+    if (!audio.paused) {
+      // USER CLICKED TO MUTE / PAUSE -> Lock manual mute state permanently until user explicitly unmutes!
+      isManuallyMutedRef.current = true;
+      sessionStorage.setItem(MANUALLY_MUTED_KEY, 'true');
+      audio.pause();
+      setIsPlaying(false);
+    } else {
       // USER CLICKED TO UNMUTE / PLAY -> Clear manual mute state!
       isManuallyMutedRef.current = false;
       sessionStorage.setItem(MANUALLY_MUTED_KEY, 'false');
       audio.volume = 0.08;
       audio.play().then(() => setIsPlaying(true)).catch(() => {});
-    } else {
-      // USER CLICKED TO MUTE / PAUSE -> Lock manual mute state so scrolling cannot trigger music!
-      isManuallyMutedRef.current = true;
-      sessionStorage.setItem(MANUALLY_MUTED_KEY, 'true');
-      audio.pause();
-      setIsPlaying(false);
     }
   };
 
