@@ -2,63 +2,56 @@ import { useEffect, useState, useRef } from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
-const MANUALLY_MUTED_KEY = 'vinu_gana_audio_manually_muted';
-
 export function BackgroundAudio() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showFloatingButton, setShowFloatingButton] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Persistent ref tracking manual user mute intent across scroll events and re-renders
-  const isManuallyMutedRef = useRef<boolean>(
-    sessionStorage.getItem(MANUALLY_MUTED_KEY) === 'true'
-  );
-
   useEffect(() => {
     const audio = (document.getElementById('bg-audio') as HTMLAudioElement) || audioRef.current;
     if (!audio) return;
 
-    audio.volume = 0.08; // 8% sound volume level (increased by 5%)
+    audio.volume = 0.08; // 8% sound volume level
 
     const handlePlayState = () => setIsPlaying(!audio.paused);
 
     audio.addEventListener('play', handlePlayState);
     audio.addEventListener('pause', handlePlayState);
 
-    // Initial play attempt on mount IF NOT manually muted by user
-    if (!isManuallyMutedRef.current) {
-      audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
-    }
+    // Initial play attempt on mount
+    audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
 
-    // Advanced Scroll Audio Controller
+    // Global listener for first user interaction to unlock autoplay policy
+    const handleFirstInteraction = () => {
+      const currentAudio = (document.getElementById('bg-audio') as HTMLAudioElement) || audioRef.current;
+      if (currentAudio && currentAudio.paused) {
+        currentAudio.play().then(() => setIsPlaying(true)).catch(() => {});
+      }
+      window.removeEventListener('click', handleFirstInteraction);
+      window.removeEventListener('touchstart', handleFirstInteraction);
+    };
+
+    window.addEventListener('click', handleFirstInteraction);
+    window.addEventListener('touchstart', handleFirstInteraction);
+
+    // Scroll listener: Hide play/pause button on Hero section (scrollY <= 300), show after Hero
     const handleScroll = () => {
-      // 1. Show floating speaker button only after scrolling past Hero section (300px)
       if (window.scrollY > 300) {
         setShowFloatingButton(true);
       } else {
         setShowFloatingButton(false);
       }
-
-      // 2. Start music INSTANTLY on first-time scroll, UNLESS manually muted by user
-      if (audio.paused && !isManuallyMutedRef.current) {
-        audio.volume = 0.08;
-        audio.play().then(() => setIsPlaying(true)).catch(() => {});
-      }
     };
 
-    // Run initial scroll check
     handleScroll();
-
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('wheel', handleScroll, { passive: true });
-    window.addEventListener('touchmove', handleScroll, { passive: true });
 
     return () => {
       audio.removeEventListener('play', handlePlayState);
       audio.removeEventListener('pause', handlePlayState);
+      window.removeEventListener('click', handleFirstInteraction);
+      window.removeEventListener('touchstart', handleFirstInteraction);
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('wheel', handleScroll);
-      window.removeEventListener('touchmove', handleScroll);
     };
   }, []);
 
@@ -68,15 +61,9 @@ export function BackgroundAudio() {
     if (!audio) return;
 
     if (audio.paused) {
-      // USER CLICKED TO UNMUTE / PLAY AGAIN -> Clear manual mute state
-      isManuallyMutedRef.current = false;
-      sessionStorage.setItem(MANUALLY_MUTED_KEY, 'false');
       audio.volume = 0.08;
       audio.play().then(() => setIsPlaying(true)).catch(() => {});
     } else {
-      // USER CLICKED TO MUTE -> Lock manual mute state so scrolling cannot trigger music!
-      isManuallyMutedRef.current = true;
-      sessionStorage.setItem(MANUALLY_MUTED_KEY, 'true');
       audio.pause();
       setIsPlaying(false);
     }

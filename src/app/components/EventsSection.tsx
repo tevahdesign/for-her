@@ -48,14 +48,14 @@ export function EventsSection() {
       eventName = 'Wedding Ceremony';
       venue = 'Reef Club Resort, Eranhikkal, Calicut';
     }
-    
+
     const googleCalendarUrl = new URL('https://calendar.google.com/calendar/render');
     googleCalendarUrl.searchParams.append('action', 'TEMPLATE');
     googleCalendarUrl.searchParams.append('text', `${eventName} - Gana & Vinu's Wedding`);
     googleCalendarUrl.searchParams.append('dates', `${startStr}/${endStr}`);
     googleCalendarUrl.searchParams.append('details', `Join us for ${eventName} at Gana & Vinu's wedding celebration.`);
     googleCalendarUrl.searchParams.append('location', venue);
-    
+
     window.open(googleCalendarUrl.toString(), '_blank');
   };
 
@@ -96,12 +96,12 @@ export function EventsSection() {
               <motion.div
                 initial={{ scale: 0, rotate: -180 }}
                 whileInView={{ scale: 1, rotate: 0 }}
-                animate={{ 
+                animate={{
                   scale: [1, 1.2, 1],
                 }}
-                transition={{ 
-                  duration: 0.4, 
-                  delay: 0.5, 
+                transition={{
+                  duration: 0.4,
+                  delay: 0.5,
                   type: "spring",
                   scale: {
                     duration: 2,
