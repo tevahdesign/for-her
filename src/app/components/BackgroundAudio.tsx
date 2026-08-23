@@ -18,7 +18,7 @@ export function BackgroundAudio() {
     const audio = (document.getElementById('bg-audio') as HTMLAudioElement) || audioRef.current;
     if (!audio) return;
 
-    audio.volume = 0.03; // 3% sound volume level
+    audio.volume = 0.08; // 8% sound volume level (increased by 5%)
 
     const handlePlayState = () => setIsPlaying(!audio.paused);
 
@@ -41,7 +41,7 @@ export function BackgroundAudio() {
 
       // 2. Start music INSTANTLY on first-time scroll, UNLESS manually muted by user
       if (audio.paused && !isManuallyMutedRef.current) {
-        audio.volume = 0.03;
+        audio.volume = 0.08;
         audio.play().then(() => setIsPlaying(true)).catch(() => {});
       }
     };
@@ -71,7 +71,7 @@ export function BackgroundAudio() {
       // USER CLICKED TO UNMUTE / PLAY AGAIN -> Clear manual mute state
       isManuallyMutedRef.current = false;
       sessionStorage.setItem(MANUALLY_MUTED_KEY, 'false');
-      audio.volume = 0.03;
+      audio.volume = 0.08;
       audio.play().then(() => setIsPlaying(true)).catch(() => {});
     } else {
       // USER CLICKED TO MUTE -> Lock manual mute state so scrolling cannot trigger music!
