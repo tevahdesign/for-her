@@ -2,10 +2,17 @@ import { useEffect, useState, useRef } from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
+const MANUALLY_MUTED_KEY = 'vinu_gana_audio_manually_muted';
+
 export function BackgroundAudio() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showFloatingButton, setShowFloatingButton] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Persistent ref tracking manual user mute intent across scroll events and re-renders
+  const isManuallyMutedRef = useRef<boolean>(
+    sessionStorage.getItem(MANUALLY_MUTED_KEY) === 'true'
+  );
 
   useEffect(() => {
     const audio = (document.getElementById('bg-audio') as HTMLAudioElement) || audioRef.current;
@@ -18,13 +25,15 @@ export function BackgroundAudio() {
     audio.addEventListener('play', handlePlayState);
     audio.addEventListener('pause', handlePlayState);
 
-    // Initial play attempt on mount
-    audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+    // Initial play attempt on mount IF NOT manually muted by user
+    if (!isManuallyMutedRef.current) {
+      audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+    }
 
-    // Global listener for first user interaction to unlock autoplay policy
+    // Global listener for first user interaction to unlock autoplay policy IF NOT manually muted
     const handleFirstInteraction = () => {
       const currentAudio = (document.getElementById('bg-audio') as HTMLAudioElement) || audioRef.current;
-      if (currentAudio && currentAudio.paused) {
+      if (currentAudio && currentAudio.paused && !isManuallyMutedRef.current) {
         currentAudio.play().then(() => setIsPlaying(true)).catch(() => {});
       }
       window.removeEventListener('click', handleFirstInteraction);
@@ -61,9 +70,15 @@ export function BackgroundAudio() {
     if (!audio) return;
 
     if (audio.paused) {
+      // USER CLICKED TO UNMUTE / PLAY -> Clear manual mute state!
+      isManuallyMutedRef.current = false;
+      sessionStorage.setItem(MANUALLY_MUTED_KEY, 'false');
       audio.volume = 0.08;
       audio.play().then(() => setIsPlaying(true)).catch(() => {});
     } else {
+      // USER CLICKED TO MUTE / PAUSE -> Lock manual mute state so scrolling cannot trigger music!
+      isManuallyMutedRef.current = true;
+      sessionStorage.setItem(MANUALLY_MUTED_KEY, 'true');
       audio.pause();
       setIsPlaying(false);
     }
