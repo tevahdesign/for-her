@@ -20,28 +20,31 @@ export function BackgroundAudio() {
 
     audio.volume = 0.08; // 8% sound volume level
 
-    // Strict play listener: If audio starts playing while manually muted, immediately pause it!
+    const isMuted = isManuallyMutedRef.current || sessionStorage.getItem(MANUALLY_MUTED_KEY) === 'true';
+
+    if (isMuted) {
+      audio.muted = true;
+      audio.pause();
+      setIsPlaying(false);
+    } else {
+      audio.muted = false;
+      audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+    }
+
+    // Strict play listener: If audio starts playing while manually muted, immediately pause & mute it!
     const handlePlayState = () => {
-      const isMuted = isManuallyMutedRef.current || sessionStorage.getItem(MANUALLY_MUTED_KEY) === 'true';
-      if (!audio.paused && isMuted) {
+      const currentlyMuted = isManuallyMutedRef.current || sessionStorage.getItem(MANUALLY_MUTED_KEY) === 'true';
+      if (currentlyMuted) {
+        audio.muted = true;
         audio.pause();
         setIsPlaying(false);
       } else {
-        setIsPlaying(!audio.paused);
+        setIsPlaying(!audio.paused && !audio.muted);
       }
     };
 
     audio.addEventListener('play', handlePlayState);
     audio.addEventListener('pause', handlePlayState);
-
-    // Initial play attempt on mount IF NOT manually muted by user
-    const isMuted = isManuallyMutedRef.current || sessionStorage.getItem(MANUALLY_MUTED_KEY) === 'true';
-    if (!isMuted) {
-      audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
-    } else {
-      audio.pause();
-      setIsPlaying(false);
-    }
 
     // Scroll listener: Hide play/pause button on Hero section (scrollY <= 300), show after Hero
     const handleScroll = () => {
@@ -67,16 +70,20 @@ export function BackgroundAudio() {
     const audio = (document.getElementById('bg-audio') as HTMLAudioElement) || audioRef.current;
     if (!audio) return;
 
-    if (!audio.paused) {
-      // USER CLICKED TO MUTE / PAUSE -> Lock manual mute state permanently until user explicitly unmutes!
+    const isMuted = isManuallyMutedRef.current || sessionStorage.getItem(MANUALLY_MUTED_KEY) === 'true';
+
+    if (!audio.paused && !isMuted) {
+      // USER CLICKED TO MUTE / PAUSE -> Lock manual mute state and mute property permanently!
       isManuallyMutedRef.current = true;
       sessionStorage.setItem(MANUALLY_MUTED_KEY, 'true');
+      audio.muted = true;
       audio.pause();
       setIsPlaying(false);
     } else {
-      // USER CLICKED TO UNMUTE / PLAY -> Clear manual mute state!
+      // USER CLICKED TO UNMUTE / PLAY -> Clear manual mute state and unmute audio!
       isManuallyMutedRef.current = false;
       sessionStorage.setItem(MANUALLY_MUTED_KEY, 'false');
+      audio.muted = false;
       audio.volume = 0.08;
       audio.play().then(() => setIsPlaying(true)).catch(() => {});
     }
@@ -88,7 +95,6 @@ export function BackgroundAudio() {
         ref={audioRef}
         id="bg-audio"
         src="/background-music.mp3"
-        autoPlay
         loop
         playsInline
         webkit-playsinline="true"
