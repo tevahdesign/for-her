@@ -23,7 +23,7 @@ const events: Event[] = [
     id: 'wedding',
     name: 'Wedding',
     date: '25 October 2026',
-    time: 'Muhurtam: 10:15 AM – 11:20 AM',
+    time: '10:15 AM – 11:20 AM',
     venue: 'Reef Club Resort, Eranhikkal, Calicut'
   }
 ];
@@ -134,6 +134,9 @@ export function EventsSection() {
                 <h3 className="font-serif text-3xl text-black">
                   Reception
                 </h3>
+                <p className="text-sm font-sans tracking-widest text-[#C4A57B] uppercase mt-1">
+                  24 October 2026
+                </p>
               </div>
 
               <div className="pt-6 mt-6 border-t border-black/5 space-y-6">
@@ -189,6 +192,9 @@ export function EventsSection() {
                   <h3 className="font-serif text-3xl text-black">
                     Wedding
                   </h3>
+                  <p className="text-sm font-sans tracking-widest text-[#C4A57B] uppercase mt-1">
+                    25 October 2026
+                  </p>
                 </div>
                 <div className="w-9 h-9 rounded-full border border-[#C4A57B]/40 flex items-center justify-center bg-white/80 shrink-0 ml-4">
                   <ChevronDown className={`w-5 h-5 text-[#C4A57B] transition-transform duration-300 ${isWeddingOpen ? 'rotate-180' : ''}`} />
@@ -211,7 +217,7 @@ export function EventsSection() {
                         <Calendar className="w-5 h-5 text-[#C4A57B] mt-1 flex-shrink-0" />
                         <div>
                           <p className="text-xs tracking-widest uppercase text-black/50 font-sans mb-1">Date & Time</p>
-                          <p className="font-serif text-lg text-black font-medium">25 October 2026 (Sunday) · Muhurtam: 10:15 AM – 11:20 AM</p>
+                          <p className="font-serif text-lg text-black font-medium">25 October 2026 (Sunday) · 10:15 AM – 11:20 AM</p>
                         </div>
                       </div>
 
