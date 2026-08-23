@@ -23,7 +23,7 @@ const events: Event[] = [
     id: 'wedding',
     name: 'Wedding',
     date: '25 October 2026',
-    time: '10:15 AM – 11:20 AM',
+    time: '10:15 AM',
     venue: 'Reef Club Resort, Eranhikkal, Calicut'
   }
 ];
@@ -141,7 +141,7 @@ export function EventsSection() {
                   <Calendar className="w-5 h-5 text-[#C4A57B] mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-xs tracking-widest uppercase text-black/50 font-sans mb-1">Date & Time</p>
-                    <p className="font-serif text-lg text-black font-medium">24 October 2026 · 5:00 PM – 8:00 PM</p>
+                    <p className="font-serif text-lg text-black font-medium">24 October 2026 (Saturday) · 5:00 PM – 8:00 PM</p>
                   </div>
                 </div>
 
@@ -214,7 +214,7 @@ export function EventsSection() {
                         <Calendar className="w-5 h-5 text-[#C4A57B] mt-1 flex-shrink-0" />
                         <div>
                           <p className="text-xs tracking-widest uppercase text-black/50 font-sans mb-1">Date & Time</p>
-                          <p className="font-serif text-lg text-black font-medium">25 October 2026 (Sunday) · 10:15 AM – 11:20 AM</p>
+                          <p className="font-serif text-lg text-black font-medium">25 October 2026 (Sunday) · 10:15 AM</p>
                         </div>
                       </div>
 
