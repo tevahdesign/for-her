@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'motion/react';
 const MANUALLY_MUTED_KEY = 'vinu_gana_audio_manually_muted';
 
 export function BackgroundAudio() {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [showFloatingButton, setShowFloatingButton] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -28,8 +28,29 @@ export function BackgroundAudio() {
       setIsPlaying(false);
     } else {
       audio.muted = false;
-      audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+      audio.play().then(() => setIsPlaying(true)).catch(() => {
+        // Autoplay blocked by browser policy until first user interaction
+        setIsPlaying(false);
+      });
     }
+
+    // Global first interaction handler to trigger music play if browser blocked un-prompted autoplay
+    const handleFirstInteraction = () => {
+      const currentAudio = (document.getElementById('bg-audio') as HTMLAudioElement) || audioRef.current;
+      const currentlyMuted = isManuallyMutedRef.current || sessionStorage.getItem(MANUALLY_MUTED_KEY) === 'true';
+      if (currentAudio && !currentlyMuted && currentAudio.paused) {
+        currentAudio.muted = false;
+        currentAudio.volume = 0.08;
+        currentAudio.play().then(() => setIsPlaying(true)).catch(() => {});
+      }
+      window.removeEventListener('click', handleFirstInteraction);
+      window.removeEventListener('touchstart', handleFirstInteraction);
+      window.removeEventListener('pointerdown', handleFirstInteraction);
+    };
+
+    window.addEventListener('click', handleFirstInteraction);
+    window.addEventListener('touchstart', handleFirstInteraction);
+    window.addEventListener('pointerdown', handleFirstInteraction);
 
     // Strict play listener: If audio starts playing while manually muted, immediately pause & mute it!
     const handlePlayState = () => {
@@ -61,6 +82,9 @@ export function BackgroundAudio() {
     return () => {
       audio.removeEventListener('play', handlePlayState);
       audio.removeEventListener('pause', handlePlayState);
+      window.removeEventListener('click', handleFirstInteraction);
+      window.removeEventListener('touchstart', handleFirstInteraction);
+      window.removeEventListener('pointerdown', handleFirstInteraction);
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
