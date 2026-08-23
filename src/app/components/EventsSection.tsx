@@ -134,6 +134,9 @@ export function EventsSection() {
                 <h3 className="font-serif text-3xl text-black">
                   Reception
                 </h3>
+                <p className="text-sm font-sans tracking-widest text-black uppercase mt-1">
+                  24 October 2026 (Saturday)
+                </p>
               </div>
 
               <div className="pt-6 mt-6 border-t border-black/5 space-y-6">
@@ -190,7 +193,7 @@ export function EventsSection() {
                     Wedding
                   </h3>
                   <p className="text-sm font-sans tracking-widest text-black uppercase mt-1">
-                    25 October 2026
+                    25 October 2026 · 10:30 AM
                   </p>
                 </div>
                 <div className="w-9 h-9 rounded-full border border-[#C4A57B]/40 flex items-center justify-center bg-white/80 shrink-0 ml-4">
