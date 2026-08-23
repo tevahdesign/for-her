@@ -23,7 +23,7 @@ const events: Event[] = [
     id: 'wedding',
     name: 'Wedding',
     date: '25 October 2026',
-    time: '10:15 AM',
+    time: '10:30 AM',
     venue: 'Reef Club Resort, Eranhikkal, Calicut'
   }
 ];
@@ -43,7 +43,7 @@ export function EventsSection() {
       eventName = 'Reception';
       venue = 'Century Convention Centre, Mele Chelari, Near Calicut University';
     } else if (eventId === 'wedding') {
-      startStr = '20261025T101500';
+      startStr = '20261025T103000';
       endStr = '20261025T112000';
       eventName = 'Wedding Ceremony';
       venue = 'Reef Club Resort, Eranhikkal, Calicut';
@@ -214,7 +214,7 @@ export function EventsSection() {
                         <Calendar className="w-5 h-5 text-[#C4A57B] mt-1 flex-shrink-0" />
                         <div>
                           <p className="text-xs tracking-widest uppercase text-black/50 font-sans mb-1">Date & Time</p>
-                          <p className="font-serif text-lg text-black font-medium">25 October 2026 (Sunday) · 10:15 AM</p>
+                          <p className="font-serif text-lg text-black font-medium">25 October 2026 (Sunday) · 10:30 AM</p>
                         </div>
                       </div>
 
