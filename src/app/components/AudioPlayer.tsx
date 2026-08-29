@@ -10,7 +10,7 @@ export function AudioPlayer() {
   useEffect(() => {
     const audio = new Audio('/background-music.mp3');
     audio.loop = true;
-    audio.volume = 0.30; // minimal background volume (increased by 5%)
+    audio.volume = 0.03; // 3% sound volume level
     audioRef.current = audio;
 
     const attemptPlay = () => {

@@ -18,7 +18,7 @@ export function BackgroundAudio() {
     const audio = (document.getElementById('bg-audio') as HTMLAudioElement) || audioRef.current;
     if (!audio) return;
 
-    audio.volume = 0.08; // 8% sound volume level
+    audio.volume = 0.03; // 3% sound volume level
 
     const isMuted = isManuallyMutedRef.current || sessionStorage.getItem(MANUALLY_MUTED_KEY) === 'true';
 
@@ -40,7 +40,7 @@ export function BackgroundAudio() {
       const currentlyMuted = isManuallyMutedRef.current || sessionStorage.getItem(MANUALLY_MUTED_KEY) === 'true';
       if (currentAudio && !currentlyMuted && currentAudio.paused) {
         currentAudio.muted = false;
-        currentAudio.volume = 0.08;
+        currentAudio.volume = 0.03;
         currentAudio.play().then(() => setIsPlaying(true)).catch(() => {});
       }
       window.removeEventListener('click', handleFirstInteraction);
@@ -108,7 +108,7 @@ export function BackgroundAudio() {
       isManuallyMutedRef.current = false;
       sessionStorage.setItem(MANUALLY_MUTED_KEY, 'false');
       audio.muted = false;
-      audio.volume = 0.08;
+      audio.volume = 0.03;
       audio.play().then(() => setIsPlaying(true)).catch(() => {});
     }
   };
